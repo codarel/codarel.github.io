@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
@@ -14,6 +15,50 @@
     <a href="home.html">Home</a>
     <a href="login.html">Login</a>
     <a href="registrasi.html">Registrasi</a>
+
+    <div class="container">
+        <h1 class="title">Registrasi</h1>
+        <form action="#" method="post">
+            <div class="field-group">
+                <label for="email">Email</label>
+                <div class="field">
+                    <input type="email" name="email" id="email" placeholder="ahmad@gmail.com" required>
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="username">Username</i></label>
+                <div class="field">
+                    <input type="text" name="username" id="username" placeholder="ahmad">
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="password">Password</i></label>
+                <div class="field">
+                    <input type="password" name="password" id="password" placeholder="ahmad123">
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="confirm">Konfirmasi Password</label>
+                <div class="field">
+                    <input type="password" name="confirm" id="confirm" placeholder="ahmad123">
+                </div>
+            </div>
+            <button type="submit" class="button">Registrasi</button>
+        </form>
+        <h3>Atau</h3>
+        <a href="#" class="login red"><i class="fab fa-google"></i>
+            <p class="fg">Registrasi dengan Google</p>
+        </a>
+        <a href="#" class="login blue"><i class="fab fa-facebook-f"></i>
+            <p class="fg">Registrasi dengan facebook</p>
+        </a>
+        <ul class="list">
+            <p class="account">Sudah memiliki akun? <a href="login.html">Login</a></p>
+        </ul>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/ec51819daf.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

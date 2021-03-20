@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  font: 12px/18px "Quicksand", arial, sans-serif;
+  background-color: #282841;
+}
+
+.container {
+  width: 300px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 16px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.title {
+  font-family: sans-serif;
+  color: #44457a;
+  padding: 30px;
+  text-align: center;
+}
+
+.field-group {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+.field-group input {
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 14px;
+  background: transparent;
+}
+
+.button {
+  width: 100%;
+  background-color: #44457a;
+  margin: 10px 0 10px 0;
+  border-radius: 3px;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+h3 {
+  text-align: center;
+}
+
+.login {
+  width: 100%;
+  margin: 10px 0 10px 0;
+  border-radius: 3px;
+  border: none;
+  padding: 10px 0 10px 0;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.red {
+  background-color: #ea4335;
+}
+
+.blue {
+  background-color: #3b5998;
+}
+
+.fab {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  margin: auto;
+}
+
+.fg {
+  flex: 4;
+  text-align: left;
+  font-size: 14px;
+}
+
+.account {
+  text-align: center;
+  text-decoration: none;
+}
+
+.left {
+  text-align: right;
+}
