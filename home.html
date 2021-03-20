@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
-<body>
+<body id="home">
     <div class="topbar">
         <h1>codarel</h1>
         <div class="right">
@@ -18,25 +18,43 @@
         </div>
     </div>
     <nav class="navbar">
-        <a href="index.html"><img src="img/home.png" alt="Home" width="32px">
+        <a href="home.html" id="linkhome"><img src="img/home.png" alt="Home" width="32px">
             <p>Home</p>
         </a>
-        <a href="home.html"><img src="img/store.png" alt="Store" width="32px">
+        <a href="store.html" id="linkstore"><img src="img/store.png" alt="Store" width="32px">
             <p>Store</p>
         </a>
-        <a href="login.html"><img src="img/leaderboard.png" alt="Leaderboard" width="32px">
+        <a href="login.html" id="linkleaderboard"><img src="img/leaderboard.png" alt="Leaderboard" width="32px">
             <p>Leaderboard</p>
         </a>
-        <a href="registrasi.html"><img src="img/purchase.png" alt="Purcase" width="32px">
+        <a href="registrasi.html" id="linkpurchase"><img src="img/purchase.png" alt="Purcase" width="32px">
             <p>Purchase</p>
         </a>
-        <a href="store.html"><img src="img/community.png" alt="Community" width="32px">
+        <a href="index.html" id="linkcommunity"><img src="img/community.png" alt="Community" width="32px">
             <p>Community</p>
         </a>
     </nav>
 
     <div class="content">
-        <h1>Isi konten</h1>
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Tab1')">Pengumuman</button>
+            <button class="tablinks" onclick="openCity(event, 'Tab2')">Profile</button>
+            <button class="tablinks" onclick="openCity(event, 'Tab3')">Inventory</button>
+        </div>
+        <div id="Tab1" class="tabcontent">
+            <h3>London</h3>
+            <p>London is the capital city of England.</p>
+        </div>
+
+        <div id="Tab2" class="tabcontent">
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p>
+        </div>
+
+        <div id="Tab3" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+        </div>
     </div>
 
     <script src="js/script.js"></script>

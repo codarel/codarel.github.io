@@ -206,6 +206,11 @@ h3 {
     padding: 6px 12px;
     border-top: none;
   }
+
+  body#home a#linkhome,
+  body#store a#linkstore {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 @media screen and (max-width: 350px) {
