@@ -36,8 +36,28 @@
     </nav>
 
     <div class="content">
-        <h1>Isi konten</h1>
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Tab1')">PC Games</button>
+            <button class="tablinks" onclick="openCity(event, 'Tab2')">Mobile Games</button>
+            <button class="tablinks" onclick="openCity(event, 'Tab3')">Pulsa & Utilitas</button>
+        </div>
+        <div id="Tab1" class="tabcontent">
+            <h3>London</h3>
+            <p>London is the capital city of England.</p>
+        </div>
+
+        <div id="Tab2" class="tabcontent">
+            <h3>Paris</h3>
+            <p>Paris is the capital of France.</p>
+        </div>
+
+        <div id="Tab3" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+        </div>
     </div>
+
+
 
     <script src="js/script.js"></script>
     <script src="https://kit.fontawesome.com/ec51819daf.js" crossorigin="anonymous"></script>
