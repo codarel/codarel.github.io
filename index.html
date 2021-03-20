@@ -6,16 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 
 <body>
-    <h1>Hello World</h1>
-    <a href="index.html">Landing Page</a>
-    <a href="home.html">Home</a>
-    <a href="login.html">Login</a>
-    <a href="registrasi.html">Registrasi</a>
-    <script src="js/script.js"></script>
+<!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar_container">
+            <a href="#home" id="navbar_logo">Codarel</a>
+            <div class="navbar_toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar_menu">
+                <li class="navbar_item">
+                    <a href="#home" class="navbar_link" id="home-page">Home</a>
+                </li>
+                <li class="navbar_item">
+                    <a href="#about" class="navbar_link" id="about-page">About</a>
+                </li>
+                <li class="navbar_item">
+                    <a href="#reward" class="navbar_link" id="reward-page">Reward</a>
+                </li>
+                <li class="navbar_item">
+                    <a href="login.html" class="navbar_link" id="login-btn">Login</a>
+                </li>
+                <li class="navbar_item">
+                    <a href="registrasi.html" class="navbar_link" id="register.btn">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </body>
 
 </html>

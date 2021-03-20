@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: "Quicksand", arial, sans-serif;
+  scroll-behavior: smooth;
+}
+a:link{
+  color:#FFFAFA;
+  text-decoration:none;
+}
+/* Navbar Styling Section */
+.navbar {
+  background: #1C1B29;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar_container{
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  width: 100%;
+  max-width: 1300px;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 0 50px;
+
+}
+
+#navbar_logo{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.navbar_menu{
+  display: flex;
+  align-items: center;
+  list-style: none;
+  transition: all 0.5s ease;
+}
+
+.navbar.item{
+  height: 80px;
+}
+
+.navbar_link{
+  text-decoration: none;
+  color: #FFFAFA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.navbar_link:hover{
+  color: #868AFF;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 960px){
+  .navbar_container{
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    z-index: 1;
+    width: 100%;
+    max-width: 1300px;
+    padding: 0;
+  }
+
+  .navbar_menu{
+    display: grid;
+    grid-template-columns: auto;
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    /* top: -1000px; */
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: -1;
+    background: #1C1B29;
+  }
+
+  .navbar_menu.active{
+    top: 100%;
+    background: #868AFF;
+    opacity: 1;
+    z-index: 99;
+    height: 60vh;
+    font-size: 1.6rem;
+    transition: all 0.5s ease;
+  }
+
+  #navbar_logo {
+    padding-left: 25px;
+  }
+
+  .navbar_toggle .bar{
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .navbar.item{
+    width: 100%;
+  }
+
+  .navbar_link{
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+}
