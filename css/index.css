@@ -6,7 +6,7 @@
   border: none;
   font-family: "Quicksand", arial, sans-serif;
   scroll-behavior: smooth;
-  color: #FAFAFA;
+  color:#FFFAFA;
 }
 
 a{
@@ -337,6 +337,13 @@ margin: 10px;
 display: flex;
 flex-direction: column;
 justify-content: center;
+}
+.curve{
+  background: #FFFAFA;
+}
+
+.curve svg{
+  display: block;
 }
 
 /* Mobile Content 2 Styling */
