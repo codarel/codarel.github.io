@@ -6,11 +6,17 @@
   border: none;
   font-family: "Quicksand", arial, sans-serif;
   scroll-behavior: smooth;
+  color: #FAFAFA;
+}
+
+a{
+  text-decoration: none;
 }
 a:link{
   color:#FFFAFA;
   text-decoration:none;
 }
+
 /* Navbar Styling Section */
 .navbar {
   background: #1C1B29;
@@ -273,7 +279,6 @@ a:link{
   }
 
   .content1_desc{
-    color: #1C1B29;
     max-width: 450px;
     font-size: 16px;
   }
