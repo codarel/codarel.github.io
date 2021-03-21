@@ -292,4 +292,41 @@ a:link{
   }
 }
 
+/* Content 2 Styling Section */
 
+.content2{
+  background-color: #FFFAFA;
+  padding: 10rem 0;
+}
+
+.content2_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 90%;
+  z-index: 1;
+  padding-top: 200px;
+}
+
+.content2_content{
+  color: #1C1B29;
+  width: 100%;
+  margin-left: 100px;
+}
+
+.content2_content h1{
+  font-size: 2rem;
+  color: #1C1B29;
+}
+
+.content2_content p{
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #1C1B29;
+}
+
+.content2_img_card img{
+margin-left: 100px;
+}
