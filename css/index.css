@@ -267,20 +267,20 @@ a:link{
 @media screen and (max-width: 960px){
 
   .content1{
-  background-size: 250% 560px;
+  background-image: url(../img/mobile.content1.png);
+  background-size: 100% 560px;
   transition: all 0.5s ease;
-  padding: 70px 0;
+  padding: 90px 0;
   }
   
   .content1_heading{
-    color: #1C1B29;
-    max-width: 600px;
-    font-size: 23;
+    max-width: 640px;
+    font-size: 24;
   }
 
   .content1_desc{
-    max-width: 450px;
-    font-size: 16px;
+    max-width: 560px;
+    font-size: 21px;
   }
   .content1_btn{
     display: inline;
