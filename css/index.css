@@ -240,31 +240,18 @@ a:link{
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 26px;
+  font-size: 23px;
   background-color: #44457A;
-  max-width: 1200px;
   color: white;
-  border-radius: 10px;
+  border-radius: 20px;
   width: 140px;
+  height: 40px;
   margin: 10px;
   transition: all 0.5s ease;
 }
 
-.inline-btn{
-  display: flex;
-  float: right;
-  justify-content: right;
-  align-items: flex-end;
-  max-width: 1200px;
-  height: 90%;
-  margin: 20px auto;
-  text-align: right;
-  padding: 30px; 
-  padding-right: 20px;
-}
-
 .content1_btn:hover{
+  font-weight: bold;
   background-color: #868AFF;
   transition: all 0.5s ease;
 
@@ -288,16 +275,9 @@ a:link{
     font-size: 16px;
   }
   .content1_btn{
-    font-size: 23px;
-  }
-  .inline-btn{
-    display: flex;
-    float: right;
-    justify-content: right;
-    align-items: flex-end;
-    height: 90%;
-    margin: 0 auto;
-    text-align: right;
+    display: inline;
+    flex-direction: row;
+    font-size: 20px;
   }
 }
 
