@@ -1,8 +1,8 @@
 // validasi login username=codarel password=codarel123
+let attempt = 3;
 function loginValidate() {
-  const attempt = 3;
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
   if (username == "codarel" && password == "codarel123") {
     alert("Login berhasil!");
     window.location = "home.html";
