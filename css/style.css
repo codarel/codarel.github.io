@@ -348,6 +348,33 @@ h3 {
   body#store a#linkstore {
     background-color: #868aff;
   }
+  .profile{
+    width: 70px;
+    padding: 5px 25px;
+    margin-top: 10px;
+  }
+  .rank{
+    width: 65px;
+    padding: 0 5px;
+  }
+  .ranks{
+    width: 70%;
+    margin: 10px auto;
+  }
+  .username{
+    font-size: 15px;
+    padding: 0 5px;
+    display: inline-flex;
+  }
+  .username p{
+    margin-top: 40px;
+  }
+  .level{
+    font-size: 15px;
+    width: 20%;
+    text-align: center;
+    padding: 0 25px;
+  }
 }
 
 @media screen and (max-width: 350px) {
