@@ -16,6 +16,61 @@ body {
   height: 100%;
 }
 
+.navbar {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.content {
+  width: 70%;
+  box-sizing: border-box;
+  height: 100%;
+  color: white;
+  background-color: #1c1b29;
+  margin: auto 5% auto auto;
+  border-radius: 25px;
+}
+
+.tab {
+  width: 100%;
+  display: flex;
+}
+
+.tablinks {
+  flex: 3;
+  background-color: #1c1b29;
+  box-sizing: border-box;
+  color: white;
+  padding: 10px;
+  font-size: 12px;
+  border-bottom: 2px solid #282841;
+}
+
+.tablinks:nth-child(1) {
+  border-top-left-radius: 25px;
+}
+
+.tablinks:nth-child(3) {
+  border-top-right-radius: 25px;
+}
+
+.tab button.active {
+  background-color: #868aff;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+
 .container {
   width: 300px;
   margin: 30px auto;
