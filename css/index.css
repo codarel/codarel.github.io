@@ -296,7 +296,7 @@ a:link{
 
 .content2{
   background-color: #FFFAFA;
-  padding: 10rem 0;
+  padding: 5rem 0;
 }
 
 .content2_container{
@@ -313,7 +313,10 @@ a:link{
 .content2_content{
   color: #1C1B29;
   width: 100%;
-  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
 }
 
 .content2_content h1{
@@ -328,5 +331,67 @@ a:link{
 }
 
 .content2_img_card img{
-margin-left: 100px;
+width: 573px; 
+height: 358px;
+margin: 10px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+/* Mobile Content 2 Styling */
+@media screen and (max-width: 960px){
+
+}
+
+/* Content 2 Styling Section */
+
+.content3{
+  background-color: #868AFF;
+  padding: 5rem 0;
+}
+
+.content3_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 90%;
+  z-index: 1;
+  padding-top: 200px;
+}
+
+.content3_content{
+  color: white ;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.content3_content h1{
+  font-size: 2rem;
+  color: white ;
+}
+
+.content3_content p{
+  margin-top: 10px;
+  font-size: 1rem;
+  color: white ;
+}
+
+.content3_img_card img{
+width: 573px; 
+height: 358px;
+margin: 10px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+/* Mobile Content 3 Styling */
+@media screen and (max-width: 960px){
+
 }
