@@ -6,11 +6,17 @@
   border: none;
   font-family: "Quicksand", arial, sans-serif;
   scroll-behavior: smooth;
+  color:#FFFAFA;
+}
+
+a{
+  text-decoration: none;
 }
 a:link{
   color:#FFFAFA;
   text-decoration:none;
 }
+
 /* Navbar Styling Section */
 .navbar {
   background: #1C1B29;
@@ -261,24 +267,138 @@ a:link{
 @media screen and (max-width: 960px){
 
   .content1{
-  background-size: 140% 560px;
+  background-image: url(../img/mobile.content1.png);
+  background-size: 100% 560px;
   transition: all 0.5s ease;
+  padding: 10px 0;
   }
-
+  
   .content1_heading{
-    max-width: 600px;
-    font-size: 23;
+    color: #1C1B29;
+    max-width: 640px;
+    font-size: 24;
   }
 
   .content1_desc{
-    max-width: 450px;
-    font-size: 16px;
+    max-width: 560px;
+    font-size: 18px;
   }
   .content1_btn{
     display: inline;
     flex-direction: row;
     font-size: 20px;
+    width: 200px;
+    height: 40px;
   }
 }
 
+/* Content 2 Styling Section */
 
+.content2{
+  background-color: #FFFAFA;
+  padding: 5rem 0;
+}
+
+.content2_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 90%;
+  z-index: 1;
+  padding-top: 200px;
+}
+
+.content2_content{
+  color: #1C1B29;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.content2_content h1{
+  font-size: 2rem;
+  color: #1C1B29;
+}
+
+.content2_content p{
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #1C1B29;
+}
+
+.content2_img_card img{
+width: 573px; 
+height: 358px;
+margin: 10px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.curve{
+  background: #FFFAFA;
+}
+
+.curve svg{
+  display: block;
+}
+
+/* Mobile Content 2 Styling */
+@media screen and (max-width: 960px){
+
+}
+
+/* Content 2 Styling Section */
+
+.content3{
+  background-color: #3C47EB;
+  padding: 5rem 0;
+}
+
+.content3_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 90%;
+  z-index: 1;
+  padding-top: 200px;
+}
+
+.content3_content{
+  color: white ;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.content3_content h1{
+  font-size: 2rem;
+  color: white ;
+}
+
+.content3_content p{
+  margin-top: 10px;
+  font-size: 1rem;
+  color: white ;
+}
+
+.content3_img_card img{
+width: 573px; 
+height: 358px;
+margin: 10px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+/* Mobile Content 3 Styling */
+@media screen and (max-width: 960px){
+
+}

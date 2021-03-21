@@ -372,32 +372,59 @@ h3 {
     border-top: none;
   }
 
+  .games {
+    width: 100%;
+    display: inline;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+  }
+
+  .game {
+    width: 75px;
+    height: 75px;
+    background-color: #282841;
+    border-radius: 10px;
+    margin: 5px;
+  }
+
   body#home a#linkhome,
   body#store a#linkstore {
     background-color: #868aff;
   }
-  .profile{
+  .profile {
     width: 70px;
     padding: 5px 25px;
     margin-top: 10px;
   }
+<<<<<<< HEAD
   .rank{
     width: 65px;
     padding: 0 5px;
   }
   .ranks{
     width:70%;
+=======
+  .rank {
+    width: 65px;
+    padding: 0 5px;
+  }
+
+  .ranks {
+    width: 70%;
+>>>>>>> 1d9419f603aa343dc2122816b3b69a64d7a73dfa
     margin: 10px auto;
   }
-  .username{
+
+  .username {
     font-size: 15px;
     padding: 0 5px;
     display: inline-flex;
   }
-  .username p{
+  .username p {
     margin-top: 40px;
   }
-  .level{
+  .level {
     font-size: 15px;
     width: 20%;
     text-align: center;
