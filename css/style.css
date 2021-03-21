@@ -120,7 +120,8 @@ h3 {
     transition: 0.5s;
     margin-top: -30px;
     box-sizing: border-box;
-    z-index: 9999;
+    background-color: #1c1b29;
+    z-index: 1;
   }
 
   .brand {
@@ -152,10 +153,9 @@ h3 {
     height: 100%;
     width: 20%;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
-    background-color: #1c1b29;
     overflow-x: hidden;
     padding: 20px;
     padding-top: 100px;
