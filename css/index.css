@@ -160,7 +160,7 @@ a:link{
 
   .navbar_btn{
     padding-bottom: 2rem;
-    
+
   }
 
   .button{
@@ -194,6 +194,90 @@ a:link{
 
   #mobile-menu.is-active .bar:nth-child(3){
     transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* Content1 Styling Section */
+
+.content1{
+  background-color: #1C1B29;
+  background-image: url("../img/content1.png");
+  background-size: 100% 560px;
+  height: 560px;
+  padding: 200px 0;
+  transition: all 0.5s ease;
+}
+
+.content1_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: flex-end;
+  max-width: 1200px;
+  height: 90%;
+  margin: 0 auto;
+  text-align: right;
+  padding: 30px;
+}
+
+.content1_heading{
+  color: white;
+  font-weight: bold;
+  margin-bottom: 24px;
+  font-size: 36px;
+  max-width: 500px;
+}
+
+.content1_desc{
+  color: white;
+  margin-bottom: 24px;
+  font-size: 23px;
+  max-width: 700px;
+}
+
+.content1_btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 23px;
+  background-color: #44457A;
+  color: white;
+  border-radius: 20px;
+  width: 140px;
+  height: 40px;
+  margin: 10px;
+  transition: all 0.5s ease;
+}
+
+.content1_btn:hover{
+  font-weight: bold;
+  background-color: #868AFF;
+  transition: all 0.5s ease;
+
+}
+
+/* Mobile Content 1 Styling */
+@media screen and (max-width: 960px){
+
+  .content1{
+  background-size: 140% 560px;
+  transition: all 0.5s ease;
+  }
+
+  .content1_heading{
+    max-width: 600px;
+    font-size: 23;
+  }
+
+  .content1_desc{
+    max-width: 450px;
+    font-size: 16px;
+  }
+  .content1_btn{
+    display: inline;
+    flex-direction: row;
+    font-size: 20px;
   }
 }
 
