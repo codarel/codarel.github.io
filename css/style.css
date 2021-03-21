@@ -238,35 +238,39 @@ h3 {
     border-radius: 10px;
     margin: 10px;
   }
-  .profile{
+
+  .game img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .profile {
     width: 100px;
     padding: 20px 25px;
     margin-top: 10px;
   }
-  .rank{
+  .rank {
     width: 80px;
     padding: 0 10px;
   }
-  .ranks{
+  .ranks {
     margin: 25px 25px;
   }
-  .username{
+  .username {
     font-size: 25px;
     padding: 0 5px;
     display: inline-flex;
   }
-  .username p{
+  .username p {
     margin-top: 80px;
     margin-left: 10px;
   }
-  .level{
+  .level {
     font-size: 25px;
     padding: 0 25px;
     margin: 15px 0 0 20px;
   }
 }
-
-
 
 /* tampilan mobile dan tablet */
 @media screen and (max-width: 960px) {
@@ -386,6 +390,11 @@ h3 {
     background-color: #282841;
     border-radius: 10px;
     margin: 5px;
+  }
+
+  .game img {
+    width: 100%;
+    object-fit: cover;
   }
 
   body#home a#linkhome,
