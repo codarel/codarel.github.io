@@ -261,16 +261,19 @@ a:link{
 @media screen and (max-width: 960px){
 
   .content1{
-  background-size: 140% 560px;
+  background-size: 250% 560px;
   transition: all 0.5s ease;
+  padding: 70px 0;
   }
-
+  
   .content1_heading{
+    color: #1C1B29;
     max-width: 600px;
     font-size: 23;
   }
 
   .content1_desc{
+    color: #1C1B29;
     max-width: 450px;
     font-size: 16px;
   }
@@ -278,6 +281,8 @@ a:link{
     display: inline;
     flex-direction: row;
     font-size: 20px;
+    width: 210px;
+    height: 40px;
   }
 }
 
