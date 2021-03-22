@@ -308,14 +308,14 @@ a:link{
   height: 90%;
   z-index: 1;
   padding-top: 200px;
+  padding-left: 100px;
 }
 
 .content2_content{
   color: #1C1B29;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin: 20px;
+  padding: 10px;
   
 }
 
@@ -328,6 +328,10 @@ a:link{
   margin-top: 10px;
   font-size: 1rem;
   color: #1C1B29;
+}
+
+.content2_img_container{
+  text-align: center;
 }
 
 .content2_img_card img{
@@ -367,15 +371,14 @@ justify-content: center;
   height: 90%;
   z-index: 1;
   padding-top: 200px;
+  padding-left: 100px;
 }
 
 .content3_content{
   color: white ;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
+  margin: 20px;
+  padding: 10px;
 }
 
 .content3_content h1{
