@@ -30,20 +30,30 @@
                 <div class="field">
                     <input type="password" name="password" id="password" placeholder="contoh: user123">
                 </div>
+                <div id="message">
+                    <h3>Password harus berisi:</h3>
+                    <p id="letter" class="invalid">Huruf <b>kecil</b></p>
+                    <p id="capital" class="invalid">Huruf <b>kapital</b></p>
+                    <p id="number" class="invalid"><b>Angka</b></p>
+                    <p id="length" class="invalid">Minimal <b>8 huruf</b></p>
+                </div>
             </div>
             <div class="field-group">
                 <label for="confirm">Konfirmasi Password</label>
                 <div class="field">
                     <input type="password" name="confirm" id="confirm" placeholder="contoh: user123">
                 </div>
+                <div id="message2">
+                    <p id="same" class="invalid">Password harus sama</p>
+                </div>
             </div>
             <button type="submit" class="button">Registrasi</button>
         </form>
         <h3>Atau</h3>
-        <a href="#" class="login red"><i class="fab fa-google"></i>
+        <a href="https://accounts.google.com/Signup" class="login red"><i class="fab fa-google"></i>
             <p class="fg">Registrasi dengan Google</p>
         </a>
-        <a href="#" class="login blue"><i class="fab fa-facebook-f"></i>
+        <a href="https://www.facebook.com/register" class="login blue"><i class="fab fa-facebook-f"></i>
             <p class="fg">Registrasi dengan facebook</p>
         </a>
         <ul class="list">
