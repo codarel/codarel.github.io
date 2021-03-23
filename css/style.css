@@ -108,7 +108,7 @@ h3 {
   text-align: right;
 }
 
-/* The message box is shown when the user clicks on the password field */
+/* Pesan ini akan tampil ketika user mengklik kolom password */
 #message,
 #message2 {
   display: none;
@@ -125,7 +125,7 @@ h3 {
   font-size: 14px;
 }
 
-/* Add a green text color and a checkmark when the requirements are right */
+/* menambahkan warna hijau dan ceklis ketika validasi sesuai */
 .valid {
   color: green;
 }
@@ -136,7 +136,7 @@ h3 {
   content: "✔";
 }
 
-/* Add a red text color and an "x" when the requirements are wrong */
+/* menambahkan sebuah warna merah dan tanda "x" ketika validasi salah */
 .invalid {
   color: red;
 }
