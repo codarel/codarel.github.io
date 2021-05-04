@@ -1,6 +1,6 @@
 <?php
 
-define('BASEURL', 'http://localhost/phpmvc/public');
+define('BASEURL', 'http://localhost/pemrograman-web/codarel.github.io/public/');
 
 
 // DB
