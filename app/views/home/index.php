@@ -1,5 +1,10 @@
 <div class="container">
     <div class="jumbotron mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <?php Flasher::flash(); ?>
+            </div>
+        </div>
         <h1 class="display-4">Selamat Datang di Website Saya</h1>
         <p class="lead">Halo, nama saya <?= $data['nama'] ?></p>
         <hr class="my-4">
