@@ -194,8 +194,8 @@
                                                     <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
                                                         <ul class="dropdown">
                                                             <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
-                                                            <li><a href="cart.html">Cart</a></li>
-                                                            <li><a href="checkout.html">Checkout</a></li>
+                                                            <li><a href="<?= BASEURL; ?>">Cart</a></li>
+                                                            <li><a href="<?= BASEURL; ?>">Checkout</a></li>
                                                         </ul>
                                                     </li>
                                                 <?php endif; ?>
@@ -229,13 +229,12 @@
                     <div class="col-12">
                         <div class="bread-inner">
                             <ul class="bread-list">
-
                                 <li><a href="<?= BASEURL; ?>">Home<i class="ti-arrow-right"></i></a></li>
                                 <?php for ($i = 0; $i < $data['count']; $i++) : ?>
                                     <?php if ($i == $data['count'] - 1) : ?>
-                                        <li class="active"><a href="blog-single.html"><?= $data['url'][$i]; ?></a></li>
+                                        <li class="active"><a href="<?= BASEURL; ?><?= $_GET['url']; ?>"><?= $data['url'][$i]; ?></a></li>
                                     <?php else : ?>
-                                        <li><a href="index1.html"><?= $data['url'][$i]; ?><i class="ti-arrow-right"></i></a></li>
+                                        <li><a href="<?= BASEURL; ?><?= $data['url'][$i]; ?>"><?= $data['url'][$i]; ?><i class="ti-arrow-right"></i></a></li>
                                     <?php endif; ?>
                                 <?php endfor; ?>
 
