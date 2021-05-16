@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-12">
                         <div class="left">
-                            <p>Copyright © <?= date('Y'); ?> <a href="#" target="_blank">Codarel</a> - All Rights Reserved.</p>
+                            <p>Copyright © <?= date('Y'); ?> Codarel - All Rights Reserved.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">

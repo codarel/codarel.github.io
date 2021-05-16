@@ -10,4 +10,20 @@ class User extends Controller
         $this->view('user/index', $data);
         $this->view('templates/footer');
     }
+
+    public function cart()
+    {
+        $data['judul'] = 'My Cart';
+        $this->view('templates/header', $data);
+        $this->view('user/cart');
+        $this->view('templates/footer');
+    }
+
+    public function checkout()
+    {
+        $data['judul'] = 'Checkout';
+        $this->view('templates/header', $data);
+        $this->view('user/checkout');
+        $this->view('templates/footer');
+    }
 }

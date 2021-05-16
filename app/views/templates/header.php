@@ -120,7 +120,7 @@
                                 <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                             </div>
                             <div class="sinlge-bar shopping">
-                                <a href="#" class="single-icon"><i class="fas fa-shopping-cart"></i> <span class="total-count">2</span></a>
+                                <a href="<?= BASEURL; ?>user/cart" class="single-icon"><i class="fas fa-shopping-cart"></i> <span class="total-count">2</span></a>
                                 <!-- Shopping Item -->
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
@@ -173,15 +173,15 @@
                                                 <li><a href="#">Service</a></li>
                                                 <li><a href="<?= BASEURL; ?>shop">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
                                                     <ul class="dropdown">
-                                                        <li><a href="shop-grid.html">Shop Grid</a></li>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
+                                                        <li><a href="<?= BASEURL; ?>shop/grid">Shop Grid</a></li>
+                                                        <li><a href="<?= BASEURL; ?>user/cart">Cart</a></li>
+                                                        <li><a href="<?= BASEURL; ?>user/checkout">Checkout</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="#">Pages</a></li>
-                                                <li><a href="#">Blog<i class="ti-angle-down"></i></a>
+                                                <li><a href="<?= BASEURL; ?>shop/blog">Blog<i class="ti-angle-down"></i></a>
                                                     <ul class="dropdown">
-                                                        <li><a href="blog-single-sidebar.html">Blog Single Sidebar</a>
+                                                        <li><a href="<?= BASEURL; ?>shop/blog">Blog Single Sidebar</a>
                                                         </li>
                                                     </ul>
                                                 </li>
