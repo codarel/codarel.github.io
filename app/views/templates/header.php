@@ -59,7 +59,6 @@
                         <!-- Top Right -->
                         <div class="right-content">
                             <ul class="list-main">
-
                                 <?php if (isset($_SESSION['email'])) : ?>
                                     <li><i class="ti-user"></i> <a href="<?= BASEURL; ?>">My account</a></li>
                                     <li><i class="fas fa-sign-out-alt"></i> <a href="<?= BASEURL; ?>auth/logout">Logout</a></li>
@@ -187,13 +186,15 @@
                                                     </ul>
                                                 </li>
                                                 <li><a href="contact.html">Contact Us</a></li>
-                                                <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                    </ul>
-                                                </li>
+                                                <?php if (isset($_SESSION['role_id']) == 1) : ?>
+                                                    <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
+                                                        <ul class="dropdown">
+                                                            <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
+                                                            <li><a href="cart.html">Cart</a></li>
+                                                            <li><a href="checkout.html">Checkout</a></li>
+                                                        </ul>
+                                                    </li>
+                                                <?php endif; ?>
                                             </ul>
                                         </div>
                                     </div>
