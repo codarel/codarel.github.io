@@ -2,7 +2,7 @@
 
 class About extends Controller
 {
-    public function index($nama = 'Sandhika', $pekerjaan = 'Dosen', $umur = 32)
+    public function index($nama = 'Huda', $pekerjaan = 'Mahasiswa', $umur = 19)
     {
         $data['nama'] = $nama;
         $data['pekerjaan'] = $pekerjaan;
@@ -18,6 +18,14 @@ class About extends Controller
         $data['judul'] = 'Pages';
         $this->view('templates/header', $data);
         $this->view('about/page');
+        $this->view('templates/footer');
+    }
+
+    public function contact()
+    {
+        $data['judul'] = 'Contact Us';
+        $this->view('templates/header', $data);
+        $this->view('about/contact');
         $this->view('templates/footer');
     }
 }

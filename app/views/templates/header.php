@@ -185,7 +185,11 @@
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="contact.html">Contact Us</a></li>
+                                                <li><a href="<?= BASEURL; ?>about">About Us<i class="ti-angle-down"></i></a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="<?= BASEURL; ?>about/contact">Contact Us</a></li>
+                                                    </ul>
+                                                </li>
                                                 <?php if (isset($_SESSION['role_id']) == 1) : ?>
                                                     <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
                                                         <ul class="dropdown">
@@ -209,57 +213,37 @@
         </div>
         <!--/ End Header Inner -->
     </header>
-    <!--/ End Header -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="<?= BASEURL; ?>">Codarel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= BASEURL; ?>">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="<?= BASEURL; ?>" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Shop
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="<?= BASEURL; ?>shop">All</a></li>
-                            <li><a class="dropdown-item" href="<?= BASEURL; ?>">Kaos</a></li>
-                            <li><a class="dropdown-item" href="<?= BASEURL; ?>">Jaket</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="<?= BASEURL; ?>">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASEURL; ?>admin">Admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASEURL; ?>auth">Auth</a>
-                    </li>
-                    <?php if (isset($_SESSION['email'])) : ?>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-primary" href="<?= BASEURL; ?>auth/logout">Keluar</a>
-                        </li>
-                    <?php else : ?>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-outline-primary" href="<?= BASEURL; ?>auth">Login</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a href="#" class="btn btn-outline-warning"><i class="fas fa-shopping-cart"></i></a>
-                    </li>
-                </ul>
+
+    <?php
+    $url = rtrim($_GET['url'], '/');
+    $url = filter_var($url, FILTER_SANITIZE_URL);
+    $url = explode('/', $url);
+    $data['url'] = $url;
+    $data['count'] = count($url);
+    ?>
+    <!-- Breadcrumbs -->
+    <?php if ($data['url'][0] != '') : ?>
+        <div class="breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bread-inner">
+                            <ul class="bread-list">
+
+                                <li><a href="<?= BASEURL; ?>">Home<i class="ti-arrow-right"></i></a></li>
+                                <?php for ($i = 0; $i < $data['count']; $i++) : ?>
+                                    <?php if ($i == $data['count'] - 1) : ?>
+                                        <li class="active"><a href="blog-single.html"><?= $data['url'][$i]; ?></a></li>
+                                    <?php else : ?>
+                                        <li><a href="index1.html"><?= $data['url'][$i]; ?><i class="ti-arrow-right"></i></a></li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav> -->
+    <?php endif; ?>
+    <!-- End Breadcrumbs -->
