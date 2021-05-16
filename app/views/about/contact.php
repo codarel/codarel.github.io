@@ -9,7 +9,7 @@
                             <h4>Get in touch</h4>
                             <h3>Write us a message</h3>
                         </div>
-                        <form class="form" method="post" action="mail/mail.php">
+                        <form class="form" method="post" action="">
                             <div class="row">
                                 <div class="col-lg-6 col-12">
                                     <div class="form-group">

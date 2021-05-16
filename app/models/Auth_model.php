@@ -23,6 +23,13 @@ class Auth_model
         return $this->db->single();
     }
 
+    public function getUserByEmail($email)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE email=:email');
+        $this->db->bind('email', $email);
+        return $this->db->single();
+    }
+
     public function _login()
     {
         $username = $_POST["email"];

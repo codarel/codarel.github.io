@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman <?= $data['judul']; ?></title>
+    <title><?= $data['judul']; ?></title>
     <link rel="shortcut icon" href="<?= BASEURL; ?>/img/merk-wb.png" type="image/x-icon">
     <!-- Web Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
@@ -60,7 +60,7 @@
                         <div class="right-content">
                             <ul class="list-main">
                                 <?php if (isset($_SESSION['email'])) : ?>
-                                    <li><i class="ti-user"></i> <a href="<?= BASEURL; ?>">My account</a></li>
+                                    <li><i class="ti-user"></i> <a href="<?= BASEURL; ?>user">My account</a></li>
                                     <li><i class="fas fa-sign-out-alt"></i> <a href="<?= BASEURL; ?>auth/logout">Logout</a></li>
                                 <?php else : ?>
                                     <li><i class="ti-power-off"></i><a href="<?= BASEURL; ?>auth">Login</a></li>
