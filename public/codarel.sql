@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 08:30 AM
+-- Generation Time: May 16, 2021 at 05:31 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -229,6 +229,14 @@ CREATE TABLE `users` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `role_id`, `email`, `username`, `fullname`, `date_of_birth`, `phone`, `user_image`, `password`, `active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'mochamadnurulhuda16@gmail.com', 'huda16', NULL, NULL, NULL, 'default.jpg', '$2y$10$nZfs/HrZsDalWehO0yB8u.iQkWq3TLEbW8C3jyJIII3vM5XAPuvGK', 1, '2021-05-15 12:37:10', NULL, NULL),
+(2, 2, 'codarel.id@gmail.com', NULL, NULL, NULL, NULL, 'default.jpg', '$2y$10$iWBQJSltNPd6pXpfXzAgGOxSF6wxOyUFznpnyQOocefj2hDenb.uS', 1, '2021-05-15 15:10:46', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -490,7 +498,7 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
