@@ -20,4 +20,12 @@ class Admin extends Controller
         $this->view('admin/index', $data);
         $this->view('templates/footer');
     }
+
+    public function create()
+    {
+        $data['judul'] = 'Tambah Data Produk';
+        $this->view('templates/header', $data);
+        $this->view('admin/create', $data);
+        $this->view('templates/footer');
+    }
 }

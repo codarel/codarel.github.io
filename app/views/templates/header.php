@@ -59,8 +59,6 @@
                         <!-- Top Right -->
                         <div class="right-content">
                             <ul class="list-main">
-                                <li><i class="ti-location-pin"></i> Store location</li>
-                                <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
 
                                 <?php if (isset($_SESSION['email'])) : ?>
                                     <li><i class="ti-user"></i> <a href="<?= BASEURL; ?>">My account</a></li>
@@ -189,7 +187,13 @@
                                                     </ul>
                                                 </li>
                                                 <li><a href="contact.html">Contact Us</a></li>
-                                                <li><a href="<?= BASEURL; ?>admin">Admin</a></li>
+                                                <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
+                                                        <li><a href="cart.html">Cart</a></li>
+                                                        <li><a href="checkout.html">Checkout</a></li>
+                                                    </ul>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

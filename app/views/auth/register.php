@@ -6,7 +6,7 @@
                     <div class="col-md-8 col-10 my-5">
                         <h3 class="mb-5 text-center heading">Codarel</h3>
                         <h6 class="msg-info">Register</h6>
-                        <form action="<?= BASEURL; ?>/auth/create" method="POST">
+                        <form action="<?= BASEURL; ?>auth/create" method="POST">
                             <div class="form-group">
                                 <label class="form-control-label text-muted" for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="Email" class="form-control">
