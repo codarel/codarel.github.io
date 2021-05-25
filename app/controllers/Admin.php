@@ -28,4 +28,9 @@ class Admin extends Controller
         $this->view('admin/create', $data);
         $this->view('templates/footer');
     }
+
+    public function save()
+    {
+        var_dump($_POST);
+    }
 }
