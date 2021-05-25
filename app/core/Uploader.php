@@ -37,7 +37,7 @@ class Uploader
 
             $namaFileBaru[] = uniqid() . "." . $ekstensiGambar;
             $path = 'img/' . $namaFileBaru[$i];
-            // move_uploaded_file($tmpName, $path);
+            move_uploaded_file($tmpName, $path);
         }
         return $namaFileBaru;
     }

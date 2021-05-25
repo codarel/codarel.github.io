@@ -10,6 +10,30 @@ class Admin_model
         $this->db = new Database;
     }
 
+    public function getAllProduct()
+    {
+        $this->db->query('SELECT * FROM ' . $this->table);
+        return $this->db->resultSet();
+    }
+
+    public function getProductById($id)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
+    public function deleteProduct($id)
+    {
+        $this->db->query('SET foreign_key_checks = 0');
+        $this->db->execute();
+        $this->db->query('DELETE FROM ' . $this->table . ' WHERE id = :id');
+        $this->db->bind('id', $id);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
     public function addProduct()
     {
         $file = $_FILES['product_image'];

@@ -111,7 +111,7 @@
                                                 </a>
                                                 <div class="button-head">
                                                     <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                        <a data-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
                                                         <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
                                                                 Wishlist</span></a>
                                                         <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to
@@ -2043,7 +2043,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
             </div>
             <div class="modal-body">
                 <div class="row no-gutters">

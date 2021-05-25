@@ -17,6 +17,7 @@ class Admin extends Controller
     {
         $data['judul'] = 'Admin';
         $data['users'] = $this->model('Auth_model')->getAllUser();
+        $data['products'] = $this->model('Admin_model')->getAllProduct();
         $this->view('templates/header', $data);
         $this->view('admin/index', $data);
         $this->view('templates/footer');
@@ -37,5 +38,27 @@ class Admin extends Controller
             Flasher::setFlash('Data produk berhasil', 'ditambahkan', 'success');
             header('Location: ' . BASEURL . 'admin');
         }
+    }
+
+    public function delete($id)
+    {
+        // cari gambar berdasarkan id
+        $file = $this->model("Admin_model")->getProductById($id);
+        $fileName = $file['product_image'];
+        $explode = explode(",", $fileName);
+        $count = count($explode);
+        // hapus gambar
+        for ($i = 0; $i < $count; $i++) {
+            if (str_word_count($explode[$i]) != 0) {
+                if ($explode[$i] == is_file('img/' . $explode[$i])) {
+                    $path = $explode[$i];
+                    unlink('img/' . $path);
+                }
+            }
+        }
+
+        $this->model("Admin_model")->deleteProduct($id);
+        Flasher::setFlash('Data produk berhasil', 'dihapus', 'success');
+        header('Location: ' . BASEURL . 'admin');
     }
 }

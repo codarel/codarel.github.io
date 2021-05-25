@@ -42,7 +42,7 @@
                 <div class="form-group row mb-2">
                     <label for="weight" class="col-sm-2 col-form-label">Berat (kg)</label>
                     <div class="col-sm-10">
-                        <input type="number" name="weight" id="weight" class="form-control">
+                        <input type="number" step="0.01" name="weight" id="weight" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
