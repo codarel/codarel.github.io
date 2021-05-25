@@ -16,6 +16,7 @@ class Admin extends Controller
     public function index()
     {
         $data['judul'] = 'Admin';
+        $data['users'] = $this->model('Auth_model')->getAllUser();
         $this->view('templates/header', $data);
         $this->view('admin/index', $data);
         $this->view('templates/footer');
@@ -31,6 +32,10 @@ class Admin extends Controller
 
     public function save()
     {
-        var_dump($_POST);
+        $data = $this->model("Admin_model")->addProduct();
+        if ($data == 1) {
+            Flasher::setFlash('Data produk berhasil', 'ditambahkan', 'success');
+            header('Location: ' . BASEURL . 'admin');
+        }
     }
 }

@@ -3,6 +3,11 @@
     <div class="row">
         <div class="col-12">
             <h2 class="my-3">Form Tambah Data Barang</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <?php Flasher::flash(); ?>
+                </div>
+            </div>
             <form action="<?= BASEURL; ?>admin/save" method="post" enctype="multipart/form-data">
                 <div class="form-group row mb-2">
                     <label for="sku" class="col-sm-2 col-form-label">SKU</label>
@@ -44,23 +49,22 @@
                     <label for="category" class="col-sm-2 col-form-label">Kategori</label>
                     <div class="col-sm-10">
                         <select id="category" class="form-control" name="category">
-                            <option value="M. Iqbal Ardimansyah, S.T., M.Kom.">M. Iqbal Ardimansyah, S.T., M.Kom.</option>
-                            <option value="Asyifa Imanda Septiana, S.Pd., M.Eng.">Asyifa Imanda Septiana, S.Pd., M.Eng.</option>
-                            <option value="Dian Anggraini, S.ST., M.T.">Dian Anggraini, S.ST., M.T.</option>
-                            <option value="Indira Syawanodya, M.Kom.">Indira Syawanodya, M.Kom.</option>
-                            <option value="Hendriyana, S.T., M.Kom.">Hendriyana, S.T., M.Kom.</option>
-                            <option value="Raditya Muhammad, S.T., M.T.">Raditya Muhammad, S.T., M.T.</option>
+                            <option value="Tshirt">Tshirt</option>
+                            <option value="Shirt">Shirt</option>
+                            <option value="Jacket">Jacket</option>
+                            <option value="Pant">Pant</option>
+                            <option value="Accessories">Accessories</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group row mb-2">
-                    <label for="attachment_file" class="col-sm-2 col-form-label">Attachment File</label>
+                    <label for="product_image" class="col-sm-2 col-form-label">Attachment File</label>
                     <div class="col-sm-10">
                         <div class="custom-file">
-                            <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                            <input type="file" class="form-control" id="product_image" aria-describedby="inputGroupFileAddon03" aria-label="Upload" name="product_image[]" multiple>
                             <div id="list_file"></div>
-                            <label class="custom-file-label" for="attachment_file">Pilih file..</label>
+                            <label class="custom-file-label" for="product_image">Pilih file..</label>
                         </div>
                     </div>
                 </div>
