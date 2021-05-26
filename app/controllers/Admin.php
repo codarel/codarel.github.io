@@ -135,11 +135,42 @@ class Admin extends Controller
     {
         if ($this->return == true) {
             $data['judul'] = 'Tambah Data Stok Produk';
-            $data['product'] = $this->model('Admin_model')->getAllProduct();
-            var_dump($data['product']);
+            $data['products'] = $this->model('Admin_model')->getAllProduct();
             $this->view('templates/header', $data);
             $this->view('admin/stok', $data);
             $this->view('templates/footer');
         }
+    }
+
+    public function savestok()
+    {
+        var_dump($_POST);
+        $stock = $this->model("Admin_model")->getStockByProductIdAndSize($_POST['product_id'], $_POST['size']);
+        if ($stock['size'] === $_POST['size']) {
+            Flasher::setFlash('Size', 'sudah ada', 'danger');
+            header('Location: ' . BASEURL . 'admin/stok');
+        } else {
+            $data = $this->model("Admin_model")->addStok();
+            if ($data == 1) {
+                Flasher::setFlash('Data stok berhasil', 'ditambahkan', 'success');
+                header('Location: ' . BASEURL . 'admin');
+            } else {
+                Flasher::setFlash('Data stok gagal', 'ditambahkan', 'danger');
+                header('Location: ' . BASEURL . 'admin');
+            }
+        }
+
+
+
+        // if (true == $this->model("Admin_model")->getProductBySku($_POST['sku'])) {
+        //     Flasher::setFlash('Nomor SKU', 'tidak boleh sama', 'danger');
+        //     header('Location: ' . BASEURL . 'admin/create');
+        // } else {
+        //     $data = $this->model("Admin_model")->addProduct();
+        //     if ($data == 1) {
+        //         Flasher::setFlash('Data produk berhasil', 'ditambahkan', 'success');
+        //         header('Location: ' . BASEURL . 'admin');
+        //     }
+        // }
     }
 }

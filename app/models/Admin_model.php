@@ -42,6 +42,14 @@ class Admin_model
         return $this->db->single();
     }
 
+    public function getStockByProductIdAndSize($product_id, $size)
+    {
+        $this->db->query('SELECT * FROM stock WHERE product_id=:product_id AND size=:size');
+        $this->db->bind('product_id', $product_id);
+        $this->db->bind('size', $size);
+        return $this->db->single();
+    }
+
     public function deleteProduct($id)
     {
         $this->db->query('SET foreign_key_checks = 0');
@@ -94,5 +102,16 @@ class Admin_model
         } else {
             header('Location: ' . BASEURL . 'admin/edit/' . $id);
         }
+    }
+
+    public function addStok()
+    {
+        $this->db->query("CALL add_stock(:product_id, :size, :quantity)");
+        $this->db->bind('product_id', $_POST['product_id']);
+        $this->db->bind('size', $_POST['size']);
+        $this->db->bind('quantity', $_POST['quantity']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
     }
 }
