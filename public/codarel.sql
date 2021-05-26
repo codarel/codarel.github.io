@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2021 at 05:31 AM
+-- Generation Time: May 26, 2021 at 04:50 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 -- Database: `codarel`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_product` (IN `sku` VARCHAR(255), IN `name` VARCHAR(255), IN `description` TEXT, IN `product_image` VARCHAR(255), IN `regular_price` INT(11), IN `discount_price` INT(11), IN `weight` FLOAT, IN `category` VARCHAR(50))  begin
+insert into products values ('', sku, name, description, product_image, regular_price, discount_price, weight, category, now(), null);
+end$$
+
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `percentage_discount` (`id_product` INT) RETURNS INT(11) BEGIN
+DECLARE percentage INT;
+DECLARE regular INT;
+DECLARE discount INT;
+SELECT regular_price INTO regular FROM products WHERE id = id_product;
+SELECT discount_price INTO discount FROM products WHERE id = id_product;
+SET percentage = 100-(discount / regular * 100);
+RETURN percentage;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -34,23 +57,7 @@ CREATE TABLE `cart` (
   `size` varchar(20) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -63,10 +70,34 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `order_status` int(11) NOT NULL DEFAULT 1,
+  `shipping` int(11) NOT NULL DEFAULT 0,
+  `amount` int(11) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `order_status`, `shipping`, `amount`, `created_at`, `updated_at`) VALUES
+(3, 2, 3, 12000, 100000, '2021-05-17 21:04:41', '2021-05-17 21:07:53');
+
+--
+-- Triggers `orders`
+--
+DELIMITER $$
+CREATE TRIGGER `insert_order_logs` AFTER INSERT ON `orders` FOR EACH ROW begin 
+insert into order_logs (id, order_id, order_status, created_at) values ('', new.id, new.order_status, now());
+end
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insert_order_logs_update` AFTER UPDATE ON `orders` FOR EACH ROW begin 
+insert into order_logs (id, order_id, order_status, created_at) values ('', new.id, new.order_status, now());
+end
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -78,9 +109,17 @@ CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `size` varchar(20) NOT NULL,
   `quantity` int(11) NOT NULL,
   `subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `size`, `quantity`, `subtotal`) VALUES
+(1, 3, 1, 'M', 1, 100000);
 
 -- --------------------------------------------------------
 
@@ -94,6 +133,15 @@ CREATE TABLE `order_logs` (
   `order_status` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_logs`
+--
+
+INSERT INTO `order_logs` (`id`, `order_id`, `order_status`, `created_at`) VALUES
+(1, 3, 1, '2021-05-17 21:04:51'),
+(2, 3, 2, '2021-05-17 21:08:02'),
+(3, 3, 3, '2021-05-17 21:08:31');
 
 -- --------------------------------------------------------
 
@@ -111,9 +159,10 @@ CREATE TABLE `order_statuses` (
 --
 
 INSERT INTO `order_statuses` (`id`, `name`) VALUES
-(1, 'Balum Bayar'),
+(1, 'Belum Bayar'),
 (2, 'Sedang Diproses'),
-(3, 'Selesai');
+(3, 'Selesai'),
+(4, 'Dibatalkan');
 
 -- --------------------------------------------------------
 
@@ -126,10 +175,18 @@ CREATE TABLE `payment` (
   `email` varchar(255) NOT NULL,
   `order_id` int(11) NOT NULL,
   `sender_name` varchar(255) NOT NULL,
-  `amount` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0,
   `payment_image` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL
+  `created_at` datetime NOT NULL,
+  `confirm` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `email`, `order_id`, `sender_name`, `amount`, `payment_image`, `created_at`, `confirm`) VALUES
+(1, 'codarel.id@gmail.com', 3, 'Codarel', 112000, 'payment.jpg', '2021-05-17 21:08:02', 1);
 
 -- --------------------------------------------------------
 
@@ -141,43 +198,25 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `sku` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text NOT NULL,
   `product_image` varchar(255) NOT NULL DEFAULT 'product.jpg',
   `regular_price` int(11) NOT NULL DEFAULT 0,
   `discount_price` int(11) NOT NULL DEFAULT 0,
-  `product_status_id` int(11) NOT NULL,
+  `weight` float NOT NULL,
+  `category` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `product_categories`
+-- Dumping data for table `products`
 --
 
-CREATE TABLE `product_categories` (
-  `category_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product_tags`
---
-
-CREATE TABLE `product_tags` (
-  `product_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `products` (`id`, `sku`, `name`, `description`, `product_image`, `regular_price`, `discount_price`, `weight`, `category`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Codarel Tshirt Black', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', 'product.jpg', 170000, 100000, 0.25, 'Tshirt', '2021-05-17 16:02:35', '2021-05-17 16:39:44'),
+(2, 'TS123', 'Codarel Tshirt Navy', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', 'product.jpg', 150000, 100000, 0.25, 'Tshirt', '2021-05-17 17:17:02', NULL),
+(3, 'TS001', 'Codarel Tshirt White', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', '', 150000, 75000, 0.25, 'Tshirt', '2021-05-17 20:28:57', NULL),
+(22, 'TS090', 'Codarel Tshirt Pink', 'A', '60ad280d74731.png,60ad280d74d53.png', 150000, 100000, 0.25, 'Tshirt', '2021-05-25 23:38:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -190,23 +229,17 @@ CREATE TABLE `stock` (
   `product_id` int(11) NOT NULL,
   `size` varchar(20) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 0,
-  `created_at` datetime NOT NULL,
-  `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tags`
---
-
-CREATE TABLE `tags` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stock`
+--
+
+INSERT INTO `stock` (`id`, `product_id`, `size`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 1, 'M', 20, '2021-05-17 14:54:44', '0000-00-00 00:00:00'),
+(3, 1, 'L', 20, '2021-05-17 14:56:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -260,10 +293,11 @@ CREATE TABLE `user_address` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `fullname` varchar(255) NOT NULL,
-  `address1` varchar(255) NOT NULL,
-  `address2` varchar(255) DEFAULT NULL,
-  `postcode` varchar(5) NOT NULL,
+  `street_name` varchar(255) NOT NULL,
+  `province` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
+  `districts` varchar(255) NOT NULL,
+  `postcode` varchar(5) NOT NULL,
   `phone` varchar(30) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -320,12 +354,6 @@ ALTER TABLE `cart`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -368,30 +396,9 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product_categories`
---
-ALTER TABLE `product_categories`
-  ADD KEY `category_id` (`category_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Indexes for table `product_tags`
---
-ALTER TABLE `product_tags`
-  ADD KEY `tag_id` (`tag_id`),
-  ADD KEY `product_tags_ibfk_1` (`product_id`);
-
---
 -- Indexes for table `stock`
 --
 ALTER TABLE `stock`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Indexes for table `tags`
---
-ALTER TABLE `tags`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -441,58 +448,46 @@ ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_logs`
 --
 ALTER TABLE `order_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_statuses`
 --
 ALTER TABLE `order_statuses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tags`
---
-ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -560,20 +555,6 @@ ALTER TABLE `order_logs`
 --
 ALTER TABLE `payment`
   ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
-
---
--- Constraints for table `product_categories`
---
-ALTER TABLE `product_categories`
-  ADD CONSTRAINT `product_categories_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
-  ADD CONSTRAINT `product_categories_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
---
--- Constraints for table `product_tags`
---
-ALTER TABLE `product_tags`
-  ADD CONSTRAINT `product_tags_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `product_tags_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`);
 
 --
 -- Constraints for table `stock`
