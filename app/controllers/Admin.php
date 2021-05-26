@@ -23,6 +23,7 @@ class Admin extends Controller
             $data['judul'] = 'Admin';
             $data['users'] = $this->model('Auth_model')->getAllUser();
             $data['products'] = $this->model('Admin_model')->getAllProduct();
+            $data['stocks'] = $this->model('Admin_model')->getAllDetailProduct();
             $this->view('templates/header', $data);
             $this->view('admin/index', $data);
             $this->view('templates/footer');
@@ -41,10 +42,15 @@ class Admin extends Controller
 
     public function save()
     {
-        $data = $this->model("Admin_model")->addProduct();
-        if ($data == 1) {
-            Flasher::setFlash('Data produk berhasil', 'ditambahkan', 'success');
-            header('Location: ' . BASEURL . 'admin');
+        if (true == $this->model("Admin_model")->getProductBySku($_POST['sku'])) {
+            Flasher::setFlash('Nomor SKU', 'tidak boleh sama', 'danger');
+            header('Location: ' . BASEURL . 'admin/create');
+        } else {
+            $data = $this->model("Admin_model")->addProduct();
+            if ($data == 1) {
+                Flasher::setFlash('Data produk berhasil', 'ditambahkan', 'success');
+                header('Location: ' . BASEURL . 'admin');
+            }
         }
     }
 
@@ -83,40 +89,57 @@ class Admin extends Controller
 
     public function update($id)
     {
-        if ($_POST['old_image'] != '') {
-            if ($_FILES['product_image']['error'][0] === 4) {
-                $data = $_POST['old_image'];
-                $return = $this->model("Admin_model")->updateProduct($id, $data);
-                if ($return == 1) {
-                    Flasher::setFlash('Data produk berhasil', 'diubah', 'success');
-                    header('Location: ' . BASEURL . 'admin');
+        if (true == $this->model("Admin_model")->getProductBySku($_POST['sku'])) {
+            Flasher::setFlash('Nomor SKU', 'tidak boleh sama', 'danger');
+            header('Location: ' . BASEURL . 'admin/edit/' . $id);
+        } else {
+            if ($_POST['old_image'] != '') {
+                if ($_FILES['product_image']['error'][0] === 4) {
+                    $data = $_POST['old_image'];
+                    $return = $this->model("Admin_model")->updateProduct($id, $data);
+                    if ($return == 1) {
+                        Flasher::setFlash('Data produk berhasil', 'diubah', 'success');
+                        header('Location: ' . BASEURL . 'admin');
+                    } else {
+                        Flasher::setFlash('Data produk gagal', 'diubah', 'danger');
+                        header('Location: ' . BASEURL . 'admin');
+                    }
                 } else {
-                    Flasher::setFlash('Data produk gagal', 'diubah', 'danger');
-                    header('Location: ' . BASEURL . 'admin');
-                }
-            } else {
-                $file = $_FILES['product_image'];
-                $explode = explode(",", $_POST['old_image']);
-                $count = count($explode);
-                // hapus gambar
-                for ($i = 0; $i < $count; $i++) {
-                    if (str_word_count($explode[$i]) != 0) {
-                        if ($explode[$i] == is_file('img/' . $explode[$i])) {
-                            if ($explode[$i] != 'product.jpg') {
-                                $path = $explode[$i];
-                                unlink('img/' . $path);
+                    $file = $_FILES['product_image'];
+                    $explode = explode(",", $_POST['old_image']);
+                    $count = count($explode);
+                    // hapus gambar
+                    for ($i = 0; $i < $count; $i++) {
+                        if (str_word_count($explode[$i]) != 0) {
+                            if ($explode[$i] == is_file('img/' . $explode[$i])) {
+                                if ($explode[$i] != 'product.jpg') {
+                                    $path = $explode[$i];
+                                    unlink('img/' . $path);
+                                }
                             }
                         }
                     }
-                }
-                $fileName = Uploader::upload($file);
-                $data = join(',', $fileName);
-                $return = $this->model("Admin_model")->updateProduct($id, $data);
-                if ($return == 1) {
-                    Flasher::setFlash('Data produk berhasil', 'diubah', 'success');
-                    header('Location: ' . BASEURL . 'admin');
+                    $fileName = Uploader::upload($file);
+                    $data = join(',', $fileName);
+                    $return = $this->model("Admin_model")->updateProduct($id, $data);
+                    if ($return == 1) {
+                        Flasher::setFlash('Data produk berhasil', 'diubah', 'success');
+                        header('Location: ' . BASEURL . 'admin');
+                    }
                 }
             }
+        }
+    }
+
+    public function stok()
+    {
+        if ($this->return == true) {
+            $data['judul'] = 'Tambah Data Stok Produk';
+            $data['product'] = $this->model('Admin_model')->getAllProduct();
+            var_dump($data['product']);
+            $this->view('templates/header', $data);
+            $this->view('admin/stok', $data);
+            $this->view('templates/footer');
         }
     }
 }

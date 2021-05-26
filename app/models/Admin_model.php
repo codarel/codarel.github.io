@@ -16,10 +16,29 @@ class Admin_model
         return $this->db->resultSet();
     }
 
+    public function getAllDetailProduct()
+    {
+        $this->db->query('SELECT * FROM product_detail');
+        return $this->db->resultSet();
+    }
+
+    public function getAllStock()
+    {
+        $this->db->query('SELECT * FROM stock');
+        return $this->db->resultSet();
+    }
+
     public function getProductById($id)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
         $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
+    public function getProductBySku($sku)
+    {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE sku=:sku');
+        $this->db->bind('sku', $sku);
         return $this->db->single();
     }
 
