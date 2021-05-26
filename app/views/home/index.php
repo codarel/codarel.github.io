@@ -3,6 +3,11 @@
     <!-- Single Slider -->
     <div class="single-slider">
         <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <?php Flasher::flash(); ?>
+                </div>
+            </div>
             <div class="row no-gutters">
                 <div class="col-lg-9 offset-lg-3 col-12">
                     <div class="text-inner">

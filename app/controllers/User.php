@@ -2,6 +2,14 @@
 
 class User extends Controller
 {
+    public function __construct()
+    {
+        if (!$_SESSION['email']) {
+            Flasher::setFlash('Anda belum', 'login', 'danger');
+            header('Location: ' . BASEURL . 'auth');
+        }
+    }
+
     public function index()
     {
         $data['judul'] = 'My Account';

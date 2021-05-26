@@ -190,14 +190,16 @@
                                                         <li><a href="<?= BASEURL; ?>about/contact">Contact Us</a></li>
                                                     </ul>
                                                 </li>
-                                                <?php if (isset($_SESSION['role_id']) == 1) : ?>
-                                                    <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
-                                                            <li><a href="<?= BASEURL; ?>">Cart</a></li>
-                                                            <li><a href="<?= BASEURL; ?>">Checkout</a></li>
-                                                        </ul>
-                                                    </li>
+                                                <?php if (isset($_SESSION['role_id'])) : ?>
+                                                    <?php if ($_SESSION['role_id'] === '1') : ?>
+                                                        <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
+                                                            <ul class="dropdown">
+                                                                <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
+                                                                <li><a href="<?= BASEURL; ?>">Cart</a></li>
+                                                                <li><a href="<?= BASEURL; ?>">Checkout</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </ul>
                                         </div>

@@ -49,6 +49,11 @@
                     </div>
                 </div>
                 <h2>Tabel Produk</h2>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a>
+                    </div>
+                </div>
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
                         <tr>
