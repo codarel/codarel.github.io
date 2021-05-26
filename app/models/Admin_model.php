@@ -55,4 +55,25 @@ class Admin_model
             header('Location: ' . BASEURL . 'admin/create');
         }
     }
+
+    public function updateProduct($id, $data)
+    {
+        if ($data != false) {
+            $this->db->query("CALL update_product(:id, :sku, :name, :description, :product_image, :regular_price, :discount_price, :weight, :category)");
+            $this->db->bind('id', $id);
+            $this->db->bind('sku', $_POST['sku']);
+            $this->db->bind('name', $_POST['name']);
+            $this->db->bind('description', $_POST['description']);
+            $this->db->bind('product_image', $data);
+            $this->db->bind('regular_price', $_POST['regular']);
+            $this->db->bind('discount_price', $_POST['discount']);
+            $this->db->bind('weight', $_POST['weight']);
+            $this->db->bind('category', $_POST['category']);
+            $this->db->execute();
+
+            return $this->db->rowCount();
+        } else {
+            header('Location: ' . BASEURL . 'admin/edit/' . $id);
+        }
+    }
 }

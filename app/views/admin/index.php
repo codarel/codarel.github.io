@@ -90,7 +90,7 @@
                                 <td><?= $product['weight']; ?></td>
                                 <td><?= $product['category']; ?></td>
                                 <td>
-                                    <button class="btn bg-warning text-white"><i class="fas fa-edit"></i></button>
+                                    <a class="btn bg-warning text-white" href="<?= BASEURL; ?>admin/edit/<?= $product['id']; ?>"><i class="fas fa-edit"></i></a>
                                     <form action="<?= BASEURL; ?>admin/delete/<?= $product['id']; ?>" method="post" class="d-inline">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button class="btn bg-danger col-lg-12 mb-2" onclick="return confirm('apakah anda yakin?');"><i class="fas fa-trash-alt"></i></button>

@@ -59,8 +59,10 @@ class Admin extends Controller
         for ($i = 0; $i < $count; $i++) {
             if (str_word_count($explode[$i]) != 0) {
                 if ($explode[$i] == is_file('img/' . $explode[$i])) {
-                    $path = $explode[$i];
-                    unlink('img/' . $path);
+                    if ($explode[$i] != 'product.jpg') {
+                        $path = $explode[$i];
+                        unlink('img/' . $path);
+                    }
                 }
             }
         }
@@ -68,5 +70,53 @@ class Admin extends Controller
         $this->model("Admin_model")->deleteProduct($id);
         Flasher::setFlash('Data produk berhasil', 'dihapus', 'success');
         header('Location: ' . BASEURL . 'admin');
+    }
+
+    public function edit($id)
+    {
+        $data['judul'] = 'Update Data Produk';
+        $data['file'] = $this->model("Admin_model")->getProductById($id);
+        $this->view('templates/header', $data);
+        $this->view('admin/edit', $data);
+        $this->view('templates/footer');
+    }
+
+    public function update($id)
+    {
+        if ($_POST['old_image'] != '') {
+            if ($_FILES['product_image']['error'][0] === 4) {
+                $data = $_POST['old_image'];
+                $return = $this->model("Admin_model")->updateProduct($id, $data);
+                if ($return == 1) {
+                    Flasher::setFlash('Data produk berhasil', 'diubah', 'success');
+                    header('Location: ' . BASEURL . 'admin');
+                } else {
+                    Flasher::setFlash('Data produk gagal', 'diubah', 'danger');
+                    header('Location: ' . BASEURL . 'admin');
+                }
+            } else {
+                $file = $_FILES['product_image'];
+                $explode = explode(",", $_POST['old_image']);
+                $count = count($explode);
+                // hapus gambar
+                for ($i = 0; $i < $count; $i++) {
+                    if (str_word_count($explode[$i]) != 0) {
+                        if ($explode[$i] == is_file('img/' . $explode[$i])) {
+                            if ($explode[$i] != 'product.jpg') {
+                                $path = $explode[$i];
+                                unlink('img/' . $path);
+                            }
+                        }
+                    }
+                }
+                $fileName = Uploader::upload($file);
+                $data = join(',', $fileName);
+                $return = $this->model("Admin_model")->updateProduct($id, $data);
+                if ($return == 1) {
+                    Flasher::setFlash('Data produk berhasil', 'diubah', 'success');
+                    header('Location: ' . BASEURL . 'admin');
+                }
+            }
+        }
     }
 }
