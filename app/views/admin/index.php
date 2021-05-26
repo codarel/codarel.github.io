@@ -21,10 +21,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
+                        <?php $nouser = 1; ?>
                         <?php foreach ($data['users'] as $user) : ?>
                             <tr>
-                                <th scope="row"><?= $i++; ?></th>
+                                <th scope="row"><?= $nouser++; ?></th>
                                 <td><?= ($user['role_id'] == 1) ? "admin" : "member"; ?></td>
                                 <td><?= $user['email']; ?></td>
                                 <td><?= $user['username']; ?></td>
@@ -51,7 +51,7 @@
                 <h2>Tabel Produk</h2>
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a>
+                        <a href="<?= BASEURL; ?>admin/create" class="btn bg-primary text-white mt-2">Tambah Data Produk</a>
                     </div>
                 </div>
                 <table class="table table-striped table-hover table-responsive">
@@ -70,14 +70,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
+                        <?php $noproduct = 1; ?>
                         <?php foreach ($data['products'] as $product) : ?>
                             <tr>
-                                <th scope="row"><?= $i++; ?></th>
+                                <th scope="row"><?= $noproduct++; ?></th>
                                 <td><?= $product['sku']; ?></td>
                                 <td><?= $product['name']; ?></td>
                                 <td><?= $product['description']; ?></td>
-                                <td><img src="<?= BASEURL; ?>img/<?= $product['product_image']; ?>" alt="<?= $product['product_image']; ?>" width="100px"></td>
+                                <td><?php
+                                    $explode = explode(',', $product['product_image']);
+                                    for ($i = 0; $i < count($explode); $i++) : ?>
+                                        <?php if (str_word_count($explode[$i]) != 0) : ?>
+                                            <img src="<?= BASEURL; ?>img/<?= $explode[$i]; ?>" alt="<?= $explode[$i]; ?>" width="100px">
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                </td>
                                 <td><?= $product['regular_price']; ?></td>
                                 <td><?= $product['discount_price']; ?></td>
                                 <td><?= $product['weight']; ?></td>
