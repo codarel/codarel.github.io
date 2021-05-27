@@ -89,7 +89,9 @@ class Admin extends Controller
 
     public function update($id)
     {
-        if (true == $this->model("Admin_model")->getProductBySku($_POST['sku'])) {
+        $product = $this->model("Admin_model")->getProductBySku($_POST['sku']);
+        $productid = $this->model("Admin_model")->getProductById($id);
+        if ($product['sku'] != $productid['sku']) {
             Flasher::setFlash('Nomor SKU', 'tidak boleh sama', 'danger');
             header('Location: ' . BASEURL . 'admin/edit/' . $id);
         } else {

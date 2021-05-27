@@ -22,6 +22,12 @@ class Admin_model
         return $this->db->resultSet();
     }
 
+    public function getAllDetailProductWithGroup()
+    {
+        $this->db->query('SELECT * FROM product_detail GROUP BY id');
+        return $this->db->resultSet();
+    }
+
     public function getAllStock()
     {
         $this->db->query('SELECT * FROM stock');
