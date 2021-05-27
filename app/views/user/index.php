@@ -1,39 +1,54 @@
-<div class="container border m-auto my-4 rounded shadow">
+<div class="container rounded bg-white mt-5 mb-5 border shadow">
     <div class="row">
-        <div class="col-12 p-4">
-            <h3 class="mb-4">My Account</h3>
-            <img class="img-thumbnail" src="<?= BASEURL; ?>img/<?= $data['user']['user_image']; ?>" alt="<?= $data['user']['user_image']; ?>"></img>
-            <div class="form-group row my-3">
-                <label for="nama_barang" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?= $data['user']['email']; ?>" autocomplete="off" disabled>
-                </div>
+        <div class="col-lg-12">
+            <?php Flasher::flash(); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="<?= BASEURL; ?>img/<?= $data['user']['user_image']; ?>" alt="User Profile"><span class="font-weight-bold"><?= $data['user']['username']; ?></span><span class="text-black-50"><?= $data['user']['email']; ?></span><span> </span>
             </div>
-            <div class="form-group row mb-3">
-                <label for="nama_barang" class="col-sm-2 col-form-label">Username</label>
-                <div class="col-sm-10">
-                    <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?= $data['user']['username']; ?>" autocomplete="off" disabled>
+        </div>
+        <div class="col-md-8 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">My Account</h4>
                 </div>
+                <form action="<?= BASEURL; ?>user/update/<?= $data['user']['id']; ?>" method="post" enctype="multipart/form-data">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels" for="email">Email</label>
+                            <input type="text" class="form-control" name="email" id="email" class="form-control" value="<?= $data['user']['email']; ?>" autocomplete="off">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username" class="form-control" value="<?= $data['user']['username']; ?>" autocomplete="off">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" for="fullname">Nama Lengkap</label>
+                            <input type="text" class="form-control" name="fullname" id="fullname" class="form-control" value="<?= $data['user']['fullname']; ?>" autocomplete="off">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" for="birth">Tanggal Lahir</label>
+                            <input type="date" class="form-control" name="birth" id="birth" class="form-control" value="<?= $data['user']['date_of_birth']; ?>">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" for="phone">No Telepon</label>
+                            <input type="text" name="phone" id="phone" class="form-control" value="<?= $data['user']['phone']; ?>" autocomplete="off">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels" for="user_image">Foto Profil</label>
+                            <input type="file" name="user_image" id="user_image" class="form-control">
+                            <div class="list-file"><?= $data['user']['user_image']; ?></div>
+                        </div>
+                        <input type="hidden" name="old_image" id="old_image" value="<?= $data['user']['user_image']; ?>">
+                    </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="submit">Ubah Data</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group row mb-3">
-                <label for="nama_barang" class="col-sm-2 col-form-label">Fullname</label>
-                <div class="col-sm-10">
-                    <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?= $data['user']['fullname']; ?>" autocomplete="off" disabled>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label for="nama_barang" class="col-sm-2 col-form-label">Date of Birth</label>
-                <div class="col-sm-10">
-                    <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?= $data['user']['date_of_birth']; ?>" autocomplete="off" disabled>
-                </div>
-            </div>
-            <div class="form-group row mb-3">
-                <label for="nama_barang" class="col-sm-2 col-form-label">Phone</label>
-                <div class="col-sm-10">
-                    <input type="text" name="nama_barang" id="nama_barang" class="form-control" value="<?= $data['user']['phone']; ?>" autocomplete="off" disabled>
-                </div>
-            </div>
-            <button class="btn rounded">Ubah Data</button>
         </div>
     </div>
 </div>

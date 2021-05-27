@@ -96,4 +96,23 @@ class Auth_model
 
         return $this->db->rowCount();
     }
+
+    public function updateUser($id, $image)
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $query = 'UPDATE ' . $this->table . ' SET email=:email, username=:username, fullname=:fullname, date_of_birth=:birth, phone=:phone, user_image=:image, updated_at=:updated_at WHERE id=:id';
+        $this->db->query($query);
+        $this->db->bind('id', $id);
+        $this->db->bind('email', $_POST['email']);
+        $this->db->bind('username', $_POST['username']);
+        $this->db->bind('fullname', $_POST['fullname']);
+        $this->db->bind('birth', $_POST['birth']);
+        $this->db->bind('phone', $_POST['phone']);
+        $this->db->bind('updated_at', date("Y-m-d H:i:s"));
+        $this->db->bind('image', $image);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }
