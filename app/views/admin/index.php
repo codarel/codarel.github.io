@@ -89,7 +89,7 @@
                             <a class="btn bg-warning text-white" href="<?= BASEURL; ?>admin/edit/<?= $product['id']; ?>"><i class="fas fa-edit"></i></a>
                             <form action="<?= BASEURL; ?>admin/delete/<?= $product['id']; ?>" method="post" class="d-inline">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn bg-danger col-lg-12 mb-2" onclick="return confirm('apakah anda yakin?');"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn bg-danger" onclick="return confirm('apakah anda yakin?');"><i class="fas fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -132,8 +132,8 @@
                         <td><?= $stock['size']; ?></td>
                         <td><?= $stock['quantity']; ?></td>
                         <td>
-                            <a class="btn bg-warning text-white" href="<?= BASEURL; ?>admin/edit/<?= $stock['id']; ?>"><i class="fas fa-edit"></i></a>
-                            <form action="<?= BASEURL; ?>admin/delete/<?= $stock['id']; ?>" method="post" class="d-inline">
+                            <a class="btn bg-warning text-white" href="<?= BASEURL; ?>admin/editstock/<?= $stock['stock_id']; ?>"><i class="fas fa-edit"></i></a>
+                            <form action="<?= BASEURL; ?>admin/deletestock/<?= $stock['stock_id']; ?>" method="post" class="d-inline">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn bg-danger" onclick="return confirm('apakah anda yakin?');"><i class="fas fa-trash-alt"></i></button>
                             </form>

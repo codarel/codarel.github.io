@@ -42,6 +42,20 @@ class Admin_model
         return $this->db->single();
     }
 
+    public function getStockById($id)
+    {
+        $this->db->query('SELECT * FROM stock WHERE id=:id');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
+    public function getStockByProductId($product_id)
+    {
+        $this->db->query('SELECT * FROM stock WHERE product_id=:product_id');
+        $this->db->bind('product_id', $product_id);
+        return $this->db->single();
+    }
+
     public function getStockByProductIdAndSize($product_id, $size)
     {
         $this->db->query('SELECT * FROM stock WHERE product_id=:product_id AND size=:size');
@@ -110,6 +124,27 @@ class Admin_model
         $this->db->bind('product_id', $_POST['product_id']);
         $this->db->bind('size', $_POST['size']);
         $this->db->bind('quantity', $_POST['quantity']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function updateStok($id)
+    {
+        $this->db->query("CALL update_stock(:id, :product_id, :size, :quantity)");
+        $this->db->bind('id', $id);
+        $this->db->bind('product_id', $_POST['product_id']);
+        $this->db->bind('size', $_POST['size']);
+        $this->db->bind('quantity', $_POST['quantity']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function deleteStock($id)
+    {
+        $this->db->query('DELETE FROM stock WHERE id = :id');
+        $this->db->bind('id', $id);
         $this->db->execute();
 
         return $this->db->rowCount();

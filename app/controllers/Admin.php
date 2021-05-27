@@ -159,18 +159,50 @@ class Admin extends Controller
                 header('Location: ' . BASEURL . 'admin');
             }
         }
+    }
 
+    public function editstock($id)
+    {
+        $data['judul'] = 'Update Data Produk';
+        $data['products'] = $this->model('Admin_model')->getAllProduct();
+        $data['stock'] = $this->model("Admin_model")->getStockById($id);
+        $this->view('templates/header', $data);
+        $this->view('admin/editstock', $data);
+        $this->view('templates/footer');
+    }
 
+    public function updatestock($id)
+    {
+        $stock = $this->model("Admin_model")->getStockById($id);
+        if ($id == $stock['id']) {
+            if (isset($_POST['product_id'])) {
+                $data = $this->model("Admin_model")->updateStok($id);
+                if ($data == 1) {
+                    Flasher::setFlash('Data stok berhasil', 'diubah', 'success');
+                    header('Location: ' . BASEURL . 'admin');
+                } else {
+                    Flasher::setFlash('Data stok gagal', 'diubah', 'danger');
+                    header('Location: ' . BASEURL . 'admin');
+                }
+            } else {
+                Flasher::setFlash('Anda', 'belum memasukkan apapun', 'danger');
+                header('Location: ' . BASEURL . 'admin');
+            }
+        } else {
+            Flasher::setFlash('Stok produk dengan id ' . $id, 'tidak ada', 'danger');
+            header('Location: ' . BASEURL . 'admin');
+        }
+    }
 
-        // if (true == $this->model("Admin_model")->getProductBySku($_POST['sku'])) {
-        //     Flasher::setFlash('Nomor SKU', 'tidak boleh sama', 'danger');
-        //     header('Location: ' . BASEURL . 'admin/create');
-        // } else {
-        //     $data = $this->model("Admin_model")->addProduct();
-        //     if ($data == 1) {
-        //         Flasher::setFlash('Data produk berhasil', 'ditambahkan', 'success');
-        //         header('Location: ' . BASEURL . 'admin');
-        //     }
-        // }
+    public function deletestock($id)
+    {
+        if (isset($_POST['_method'])) {
+            $this->model("Admin_model")->deleteStock($id);
+            Flasher::setFlash('Data stok produk berhasil', 'dihapus', 'success');
+            header('Location: ' . BASEURL . 'admin');
+        } else {
+            Flasher::setFlash('Data stok produk gagal', 'dihapus', 'danger');
+            header('Location: ' . BASEURL . 'admin');
+        }
     }
 }
