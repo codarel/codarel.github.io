@@ -21,10 +21,24 @@ class User extends Controller
 
     public function addtocart($id)
     {
-        $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
-        var_dump($data['user']);
+        $user = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
+        var_dump($user['id']);
         var_dump($id);
         var_dump($_POST);
+        // var_dump($_POST['quant'][1]);
+        if ($this->model('User_model')->getCartByUserProductAndSize($user['id'], $id, $_POST['size']) === 0) {
+            $data = $this->model('Admin_model')->addToCart($user['id'], $id);
+            if ($data == 1) {
+                Flasher::setFlash('Produk berhasil', 'ditambahkan', 'success');
+                header('Location: ' . BASEURL . 'shop/product/' . $_POST['sku']);
+            } else {
+                Flasher::setFlash('Produk gagal', 'ditambahkan', 'danger');
+                header('Location: ' . BASEURL . 'shop/product/' . $_POST['sku']);
+            }
+        } else {
+            Flasher::setFlash('Produk ini', 'sudah ditambahkan sebelumnya', 'danger');
+            header('Location: ' . BASEURL . 'shop/product/' . $_POST['sku']);
+        }
     }
 
     public function cart()

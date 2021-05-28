@@ -1,4 +1,9 @@
 <div class="container my-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <?php Flasher::flash(); ?>
+        </div>
+    </div>
     <div class="row no-gutters">
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <!-- Product Slider -->
@@ -56,7 +61,7 @@
                     <p><?= $data['product']['description']; ?></p>
                 </div>
                 <form action="<?= BASEURL; ?>user/addtocart/<?= $data['product']['id']; ?>" method="post" enctype="multipart/form-data">
-
+                    <input type="hidden" name="sku" id="sku" value="<?= $data['product']['sku']; ?>">
                     <div class="size">
                         <div class="row">
                             <div class="col-lg-6 col-12">

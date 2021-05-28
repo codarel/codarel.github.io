@@ -169,4 +169,18 @@ class Admin_model
 
         return $this->db->rowCount();
     }
+
+    public function addToCart($user_id, $product_id)
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $this->db->query('INSERT INTO cart (user_id, product_id, size, quantity, created_at) VALUES (:user_id, :product_id, :size, :quantity, :created_at)');
+        $this->db->bind('user_id', $user_id);
+        $this->db->bind('product_id', $product_id);
+        $this->db->bind('size', $_POST['size']);
+        $this->db->bind('quantity', $_POST['quant'][1]);
+        $this->db->bind('created_at', date("Y-m-d H:i:s"));
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }

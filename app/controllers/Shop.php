@@ -15,8 +15,6 @@ class Shop extends Controller
         $data['judul'] = 'Product Details';
         $data['product'] = $this->model("Admin_model")->getDetailProductBySkuWithGroup($sku);
         $data['stock'] = $this->model("Admin_model")->getDetailProductBySku($sku);
-        var_dump($data['product']);
-        var_dump($data['stock']);
         $this->view('templates/header', $data);
         $this->view('shop/product', $data);
         $this->view('templates/footer');
