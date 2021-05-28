@@ -1,1 +1,3 @@
-/app/config/config.php
+# Config
+app/config/
+app/config/config.php

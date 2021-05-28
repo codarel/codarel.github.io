@@ -44,8 +44,15 @@ class User extends Controller
     public function cart()
     {
         $data['judul'] = 'My Cart';
+        $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
+        $data['cart'] = $this->model("User_model")->getCartByEmail($_SESSION['email']);
+
+        $data['product'] = $this->model("Admin_model")->getProductById($data['cart'][0]['product_id']);
+        var_dump($data['product']);
+        $data['explode'] = explode(',', $data['product']['product_image']);
+        var_dump($data['cart']);
         $this->view('templates/header', $data);
-        $this->view('user/cart');
+        $this->view('user/cart', $data);
         $this->view('templates/footer');
     }
 

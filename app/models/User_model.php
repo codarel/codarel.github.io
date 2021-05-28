@@ -3,6 +3,7 @@
 class User_model
 {
     private $nama = 'Huda';
+    private $db;
 
     public function __construct()
     {
@@ -32,5 +33,31 @@ class User_model
         $this->db->execute();
 
         return $this->db->rowCount();
+    }
+
+    public function getCountCartByEmail($email)
+    {
+        $this->db->query('SELECT * FROM users WHERE email=:email');
+        $this->db->bind('email', $email);
+        $this->db->execute();
+        $user_id = $this->db->single();
+        $this->db->query('SELECT * FROM cart WHERE user_id=:user_id');
+        $this->db->bind('user_id', $user_id['id']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function getCartByEmail($email)
+    {
+        $this->db->query('SELECT * FROM users WHERE email=:email');
+        $this->db->bind('email', $email);
+        $this->db->execute();
+        $user_id = $this->db->single();
+        $this->db->query('SELECT * FROM cart WHERE user_id=:user_id');
+        $this->db->bind('user_id', $user_id['id']);
+        $this->db->execute();
+
+        return $this->db->resultSet();
     }
 }
