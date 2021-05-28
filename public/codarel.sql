@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2021 at 04:50 AM
+-- Generation Time: May 28, 2021 at 08:52 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -27,6 +27,18 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_product` (IN `sku` VARCHAR(255), IN `name` VARCHAR(255), IN `description` TEXT, IN `product_image` VARCHAR(255), IN `regular_price` INT(11), IN `discount_price` INT(11), IN `weight` FLOAT, IN `category` VARCHAR(50))  begin
 insert into products values ('', sku, name, description, product_image, regular_price, discount_price, weight, category, now(), null);
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_stock` (IN `product_id` INT(11), IN `size` VARCHAR(20), IN `quantity` INT(11))  begin
+insert into stock values ('', product_id, size, quantity, now(), null);
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_product` (IN `id_product` INT(11), IN `sku` VARCHAR(255), IN `name` VARCHAR(255), IN `description` TEXT, IN `product_image` VARCHAR(255), IN `regular_price` INT(11), IN `discount_price` INT(11), IN `weight` FLOAT, IN `category` VARCHAR(50))  begin
+update products set sku=sku, name=name, description=description, product_image=product_image, regular_price=regular_price, discount_price=discount_price, weight=weight, category=category, updated_at=now() where id=id_product; 
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_stock` (IN `stock_id` INT(11), IN `product_id` INT(11), IN `size` VARCHAR(20), IN `quantity` INT(11))  begin
+update stock set product_id=product_id, size=size, quantity=quantity, updated_at=now() where id=stock_id;
 end$$
 
 --
@@ -213,10 +225,50 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `sku`, `name`, `description`, `product_image`, `regular_price`, `discount_price`, `weight`, `category`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Codarel Tshirt Black', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', 'product.jpg', 170000, 100000, 0.25, 'Tshirt', '2021-05-17 16:02:35', '2021-05-17 16:39:44'),
-(2, 'TS123', 'Codarel Tshirt Navy', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', 'product.jpg', 150000, 100000, 0.25, 'Tshirt', '2021-05-17 17:17:02', NULL),
-(3, 'TS001', 'Codarel Tshirt White', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', '', 150000, 75000, 0.25, 'Tshirt', '2021-05-17 20:28:57', NULL),
-(22, 'TS090', 'Codarel Tshirt Pink', 'A', '60ad280d74731.png,60ad280d74d53.png', 150000, 100000, 0.25, 'Tshirt', '2021-05-25 23:38:37', NULL);
+(1, 'TS001', 'Codarel Tshirt Black', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', '60b064a40c8c1.jpg,60b064a40d43e.jpg', 170000, 100000, 0.25, 'Tshirt', '2021-05-17 16:02:35', '2021-05-28 10:33:56'),
+(2, 'TS002', 'Codarel Tshirt Navy', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', 'product.jpg', 150000, 100000, 0.25, 'Tshirt', '2021-05-17 17:17:02', '2021-05-26 13:53:39'),
+(3, 'TS090', 'Codarel Tshirt Pink', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', '60afad181aab6.jpg', 150000, 0, 0.25, 'Tshirt', '2021-05-17 20:28:57', '2021-05-27 23:06:54'),
+(22, 'TS092', 'Codarel Tshirt Pink', 'Bahan 100% cotton, tipis dan ringan, handfeel lembut, nyaman dipakai di segala cuaca. Graphic printing pada bagian dada', '60afad7b42e90.jpg', 150000, 100000, 0.2, 'Tshirt', '2021-05-25 23:38:37', '2021-05-27 21:32:27'),
+(25, 'TS091', 'Codarel Tshirt Green', 'Bahan 100% cotton, tipis dan ringan, handfeel lemb', '60afad9cc3c71.jpg', 150000, 100000, 0.1, 'Tshirt', '2021-05-26 20:08:51', '2021-05-27 21:33:00'),
+(26, 'TS003', 'Sole Mates', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b02fadeeda6.jpg', 129000, 0, 0.2, 'Tshirt', '2021-05-28 06:47:57', NULL),
+(27, 'TS004', 'Black pure', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b02fe3b84c9.jpg', 129000, 0, 0.2, 'Tshirt', '2021-05-28 06:48:51', NULL),
+(28, 'TS005', 'strip snow', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b0345181815.jpg', 179000, 0, 0.2, 'Tshirt', '2021-05-28 07:07:45', NULL),
+(29, 'TS006', 'road t-shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03974461b8.jpg', 179000, 0, 0.2, 'Tshirt', '2021-05-28 07:29:40', NULL),
+(30, 'TS007', 'road red t-shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b039ca8b105.jpg', 179000, 0, 0.2, 'Tshirt', '2021-05-28 07:31:06', NULL),
+(31, 'TS008', 'High', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03a0c0fb1c.jpg', 229000, 0, 0.2, 'Tshirt', '2021-05-28 07:32:12', NULL),
+(32, 'TS010', 'out of cash', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03a5453e0f.jpg', 179000, 0, 0.2, 'Tshirt', '2021-05-28 07:33:24', NULL),
+(33, 'S001', 'Red Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03aa04a04f.jpg', 279000, 0, 0.2, 'Shirt', '2021-05-28 07:34:40', '2021-05-28 07:35:08'),
+(34, 'S002', 'Strip Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03aee4b6e5.jpg', 278999, 0, 0.2, 'Shirt', '2021-05-28 07:35:58', NULL),
+(35, 'S003', 'Cube Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03b251f243.jpg', 299000, 0, 0.2, 'Shirt', '2021-05-28 07:36:53', NULL),
+(36, 'S004', 'Carbon', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03b5db40b9.jpg', 229000, 0, 0.2, 'Shirt', '2021-05-28 07:37:49', NULL),
+(37, 'S005', 'White Stan', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03b9be7f7d.jpg', 229000, 0, 0.2, 'Shirt', '2021-05-28 07:38:51', NULL),
+(38, 'S006', 'Dizzy Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03bd504941.jpg', 299000, 0, 0.2, 'Shirt', '2021-05-28 07:39:49', NULL),
+(39, 'S007', 'Cube Standard', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03c14c9703.jpg', 279000, 0, 0.2, 'Shirt', '2021-05-28 07:40:52', NULL),
+(40, 'S008', 'Abstrak Shirt', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03c773164c.jpg', 279000, 0, 0.2, 'Shirt', '2021-05-28 07:42:31', NULL),
+(41, 'JC001', 'jacket jeans blue standard', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '60b03cf7acc6b.jpg', 329000, 0, 0.2, 'Jacket', '2021-05-28 07:44:39', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `product_detail`
+-- (See below for the actual view)
+--
+CREATE TABLE `product_detail` (
+`id` int(11)
+,`sku` varchar(255)
+,`name` varchar(255)
+,`description` text
+,`product_image` varchar(255)
+,`regular_price` int(11)
+,`discount_price` int(11)
+,`weight` float
+,`category` varchar(50)
+,`stock_id` int(11)
+,`size` varchar(20)
+,`quantity` int(11)
+,`created_at` datetime
+,`updated_at` datetime
+);
 
 -- --------------------------------------------------------
 
@@ -238,8 +290,15 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id`, `product_id`, `size`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 1, 'M', 20, '2021-05-17 14:54:44', '0000-00-00 00:00:00'),
-(3, 1, 'L', 20, '2021-05-17 14:56:05', NULL);
+(1, 1, 'M', 20, '2021-05-17 14:54:44', '2021-05-27 11:31:11'),
+(3, 1, 'L', 20, '2021-05-17 14:56:05', NULL),
+(19, 25, 'M', 20, NULL, NULL),
+(20, 3, 'M', 20, '2021-05-26 23:34:24', NULL),
+(21, 1, 'XL', 20, '2021-05-27 10:21:08', '2021-05-27 11:31:29'),
+(24, 1, 'SM', 10, '2021-05-27 11:43:38', '2021-05-27 11:43:46'),
+(25, 26, 'S', 10, '2021-05-28 09:43:33', NULL),
+(26, 27, 'M', 10, '2021-05-28 09:43:52', NULL),
+(27, 37, 'M', 10, '2021-05-28 09:44:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -268,7 +327,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `email`, `username`, `fullname`, `date_of_birth`, `phone`, `user_image`, `password`, `active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'mochamadnurulhuda16@gmail.com', 'huda16', NULL, NULL, NULL, 'default.jpg', '$2y$10$nZfs/HrZsDalWehO0yB8u.iQkWq3TLEbW8C3jyJIII3vM5XAPuvGK', 1, '2021-05-15 12:37:10', NULL, NULL),
+(1, 1, 'mochamadnurulhuda16@gmail.com', 'huda16', 'Mochamad Nurul Huda', '0000-00-00', '', '60af73b5ae151.png', '$2y$10$nZfs/HrZsDalWehO0yB8u.iQkWq3TLEbW8C3jyJIII3vM5XAPuvGK', 1, '2021-05-15 12:37:10', '2021-05-27 17:27:51', NULL),
 (2, 2, 'codarel.id@gmail.com', NULL, NULL, NULL, NULL, 'default.jpg', '$2y$10$iWBQJSltNPd6pXpfXzAgGOxSF6wxOyUFznpnyQOocefj2hDenb.uS', 1, '2021-05-15 15:10:46', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -341,6 +400,15 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 (1, 'Administrator'),
 (2, 'Member');
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `product_detail`
+--
+DROP TABLE IF EXISTS `product_detail`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_detail`  AS  select `products`.`id` AS `id`,`products`.`sku` AS `sku`,`products`.`name` AS `name`,`products`.`description` AS `description`,`products`.`product_image` AS `product_image`,`products`.`regular_price` AS `regular_price`,`products`.`discount_price` AS `discount_price`,`products`.`weight` AS `weight`,`products`.`category` AS `category`,`stock`.`id` AS `stock_id`,`stock`.`size` AS `size`,`stock`.`quantity` AS `quantity`,`stock`.`created_at` AS `created_at`,`stock`.`updated_at` AS `updated_at` from (`products` join `stock` on(`products`.`id` = `stock`.`product_id`)) ;
+
 --
 -- Indexes for dumped tables
 --
@@ -393,13 +461,15 @@ ALTER TABLE `payment`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sku` (`sku`);
 
 --
 -- Indexes for table `stock`
 --
 ALTER TABLE `stock`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `users`
@@ -481,13 +551,13 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users`
