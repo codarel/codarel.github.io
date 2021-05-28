@@ -7,13 +7,15 @@
                     <?php
                     $explode = explode(',', $data['product']['product_image']);
                     for ($i = 0; $i < count($explode); $i++) : ?>
-                        <?php if (str_word_count($explode[0]) != 0) : ?>
+                        <?php if (str_word_count($explode[$i]) != 0) : ?>
                             <div class="single-slider">
                                 <img src="<?= BASEURL; ?>img/<?= $explode[$i]; ?>" alt="Product Image">
                             </div>
                         <?php endif; ?>
                     <?php endfor; ?>
-
+                    <div class="single-slider">
+                        <img src="https://via.placeholder.com/569x528" alt="Product Size">
+                    </div>
                 </div>
             </div>
             <!-- End Product slider -->
