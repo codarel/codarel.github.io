@@ -10,6 +10,18 @@ class Shop extends Controller
         $this->view('templates/footer');
     }
 
+    public function product($sku)
+    {
+        $data['judul'] = 'Product Details';
+        $data['product'] = $this->model("Admin_model")->getDetailProductBySkuWithGroup($sku);
+        $data['stock'] = $this->model("Admin_model")->getDetailProductBySku($sku);
+        var_dump($data['product']);
+        var_dump($data['stock']);
+        $this->view('templates/header', $data);
+        $this->view('shop/product', $data);
+        $this->view('templates/footer');
+    }
+
     public function grid()
     {
         $data['judul'] = 'Shop Grid';

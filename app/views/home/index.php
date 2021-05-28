@@ -113,7 +113,12 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a href="product-details.html">
-                                                        <img class="default-img" src="<?= BASEURL; ?>img/<?= $product['product_image']; ?>" alt="product_image">
+                                                        <?php
+                                                        $explode = explode(',', $product['product_image']);
+                                                        ?>
+                                                        <?php if (str_word_count($explode[0]) != 0) : ?>
+                                                            <img class="default-img" src="<?= BASEURL; ?>img/<?= $explode[0]; ?>" alt="product_image">
+                                                        <?php endif; ?>
                                                         <img class=" hover-img" src="https://via.placeholder.com/550x750" alt="#">
                                                         <?php if ($product['discount_price'] != 0) : ?>
                                                             <span class="price-dec">
@@ -135,7 +140,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
-                                                    <h3><a href="product-details.html"><?= $product['name']; ?></a></h3>
+                                                    <h3><a href="<?= BASEURL; ?>shop/product/<?= $product['sku']; ?>"><?= $product['name']; ?></a></h3>
                                                     <div class="product-price">
                                                         <span>
                                                             <?php if ($product['discount_price'] == 0) : ?>
@@ -149,35 +154,6 @@
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
-                                    <div class="col-xl-3 col-lg-4 col-md-4 col-12">
-                                        <div class="single-product">
-                                            <div class="product-img">
-                                                <a href="product-details.html">
-                                                    <img class="default-img" src="https://via.placeholder.com/550x750" alt="#">
-                                                    <img class="hover-img" src="https://via.placeholder.com/550x750" alt="#">
-                                                    <span class="price-dec">30% Off</span>
-                                                </a>
-                                                <div class="button-head">
-                                                    <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                        <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-                                                                Wishlist</span></a>
-                                                        <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to
-                                                                Compare</span></a>
-                                                    </div>
-                                                    <div class="product-action-2">
-                                                        <a title="Add to cart" href="#">Add to cart</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="product-content">
-                                                <h3><a href="product-details.html">Awesome Cap For Women</a></h3>
-                                                <div class="product-price">
-                                                    <span>$29.00</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

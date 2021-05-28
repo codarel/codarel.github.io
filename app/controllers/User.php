@@ -19,6 +19,14 @@ class User extends Controller
         $this->view('templates/footer');
     }
 
+    public function addtocart($id)
+    {
+        $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
+        var_dump($data['user']);
+        var_dump($id);
+        var_dump($_POST);
+    }
+
     public function cart()
     {
         $data['judul'] = 'My Cart';

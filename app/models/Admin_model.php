@@ -28,6 +28,20 @@ class Admin_model
         return $this->db->resultSet();
     }
 
+    public function getDetailProductBySkuWithGroup($sku)
+    {
+        $this->db->query('SELECT * FROM product_detail GROUP BY id HAVING sku=:sku');
+        $this->db->bind('sku', $sku);
+        return $this->db->single();
+    }
+
+    public function getDetailProductBySku($sku)
+    {
+        $this->db->query('SELECT * FROM product_detail WHERE sku=:sku');
+        $this->db->bind('sku', $sku);
+        return $this->db->resultSet();
+    }
+
     public function getAllStock()
     {
         $this->db->query('SELECT * FROM stock');
