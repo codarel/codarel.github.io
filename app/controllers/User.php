@@ -22,9 +22,6 @@ class User extends Controller
     public function addtocart($id)
     {
         $user = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
-        var_dump($user['id']);
-        var_dump($id);
-        var_dump($_POST);
         // var_dump($_POST['quant'][1]);
         if ($this->model('User_model')->getCartByUserProductAndSize($user['id'], $id, $_POST['size']) === 0) {
             $data = $this->model('Admin_model')->addToCart($user['id'], $id);
@@ -45,12 +42,7 @@ class User extends Controller
     {
         $data['judul'] = 'My Cart';
         $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
-        $data['cart'] = $this->model("User_model")->getCartByEmail($_SESSION['email']);
-
-        $data['product'] = $this->model("Admin_model")->getProductById($data['cart'][0]['product_id']);
-        var_dump($data['product']);
-        $data['explode'] = explode(',', $data['product']['product_image']);
-        var_dump($data['cart']);
+        $data['cart'] = $this->model("User_model")->getDetailCartByEmail($_SESSION['email']);
         $this->view('templates/header', $data);
         $this->view('user/cart', $data);
         $this->view('templates/footer');
@@ -58,9 +50,15 @@ class User extends Controller
 
     public function checkout()
     {
+        var_dump($_POST);
+        $data['post'] = $_POST;
+        $data['count'] = count($_POST['quantity']);
+
+        var_dump(array_sum($_POST['count']));
+
         $data['judul'] = 'Checkout';
         $this->view('templates/header', $data);
-        $this->view('user/checkout');
+        $this->view('user/checkout', $data);
         $this->view('templates/footer');
     }
 
@@ -94,5 +92,10 @@ class User extends Controller
                 }
             }
         }
+    }
+
+    public function payment()
+    {
+        var_dump($_POST);
     }
 }

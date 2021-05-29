@@ -60,4 +60,17 @@ class User_model
 
         return $this->db->resultSet();
     }
+
+    public function getDetailCartByEmail($email)
+    {
+        $this->db->query('SELECT * FROM users WHERE email=:email');
+        $this->db->bind('email', $email);
+        $this->db->execute();
+        $user_id = $this->db->single();
+        $this->db->query('SELECT * FROM cart_detail WHERE user_id=:user_id');
+        $this->db->bind('user_id', $user_id['id']);
+        $this->db->execute();
+
+        return $this->db->resultSet();
+    }
 }

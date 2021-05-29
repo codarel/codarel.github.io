@@ -349,9 +349,9 @@
                         <h2>CART TOTALS</h2>
                         <div class="content">
                             <ul>
-                                <li>Sub Total<span>$330.00</span></li>
-                                <li>(+) Shipping<span>$10.00</span></li>
-                                <li class="last">Total<span>$340.00</span></li>
+                                <li>Sub Total<span><?= array_sum($_POST['count']); ?></span></li>
+                                <li>(+) Shipping<span>12000</span></li>
+                                <li class="last">Total<span><?= array_sum($_POST['count']) + 12000; ?></span></li>
                             </ul>
                         </div>
                     </div>
@@ -375,15 +375,26 @@
                         </div>
                     </div>
                     <!--/ End Payment Method Widget -->
-                    <!-- Button Widget -->
-                    <div class="single-widget get-button">
-                        <div class="content">
-                            <div class="button">
-                                <a href="#" class="btn">proceed to checkout</a>
+                    <form action="<?= BASEURL; ?>user/payment" method="post" enctype="multipart/form-data">
+                        <?php for ($i = 0; $i < $data['count']; $i++) : ?>
+                            <input type="hidden" name="quantity[]" value="<?= $data['post']['quantity'][$i]; ?>">
+                            <input type="hidden" name="size[]" value="<?= $data['post']['size'][$i]; ?>">
+                            <input type="hidden" name="price[]" value="<?= $data['post']['price'][$i]; ?>">
+                            <input type="hidden" name="product_id[]" value="<?= $data['post']['product_id'][$i]; ?>">
+                            <input type="hidden" name="subtotal[]" value="<?= $data['post']['count'][$i]; ?>">
+                        <?php endfor; ?>
+                        <input type="hidden" name="shipping" value="12000">
+                        <input type="hidden" name="amount" value="<?= array_sum($_POST['count']) + 12000; ?>">
+                        <!-- Button Widget -->
+                        <div class="single-widget get-button">
+                            <div class="content">
+                                <div class="button">
+                                    <button type="submit" class="btn">proceed to checkout</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!--/ End Button Widget -->
+                        <!--/ End Button Widget -->
+                    </form>
                 </div>
             </div>
         </div>
