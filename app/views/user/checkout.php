@@ -375,7 +375,7 @@
                         </div>
                     </div>
                     <!--/ End Payment Method Widget -->
-                    <form action="<?= BASEURL; ?>user/payment" method="post" enctype="multipart/form-data">
+                    <form action="<?= BASEURL; ?>user/addorder" method="post" enctype="multipart/form-data">
                         <?php for ($i = 0; $i < $data['count']; $i++) : ?>
                             <input type="hidden" name="quantity[]" value="<?= $data['post']['quantity'][$i]; ?>">
                             <input type="hidden" name="size[]" value="<?= $data['post']['size'][$i]; ?>">

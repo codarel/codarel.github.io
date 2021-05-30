@@ -50,16 +50,17 @@ class User extends Controller
 
     public function checkout()
     {
-        var_dump($_POST);
-        $data['post'] = $_POST;
-        $data['count'] = count($_POST['quantity']);
-
-        var_dump(array_sum($_POST['count']));
-
-        $data['judul'] = 'Checkout';
-        $this->view('templates/header', $data);
-        $this->view('user/checkout', $data);
-        $this->view('templates/footer');
+        if ($_POST != null) {
+            $data['post'] = $_POST;
+            $data['count'] = count($_POST['quantity']);
+            $data['judul'] = 'Checkout';
+            $this->view('templates/header', $data);
+            $this->view('user/checkout', $data);
+            $this->view('templates/footer');
+        } else {
+            Flasher::setFlash('Anda belum', 'memilih produk', 'danger');
+            header('Location: ' . BASEURL);
+        }
     }
 
     public function update($id)
@@ -94,8 +95,33 @@ class User extends Controller
         }
     }
 
+    public function addorder()
+    {
+        if ($_POST != null) {
+            var_dump($_POST);
+            $user = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
+            $id = $this->model("Admin_model")->addOrder($user['id']);
+            var_dump($id);
+            $data = $this->model("Admin_model")->addOrderItems($id);
+            if ($data == 1) {
+                $this->model("Admin_model")->deleteAllItemCart($user['id']);
+                Flasher::setFlash('Checkout', 'berhasil', 'success');
+                header('Location: ' . BASEURL . 'user/payment');
+            } else {
+                Flasher::setFlash('Checkout', 'gagal', 'danger');
+                header('Location: ' . BASEURL . 'user/checkout');
+            }
+        } else {
+            Flasher::setFlash('Anda belum', 'melakukan checkout', 'danger');
+            header('Location: ' . BASEURL);
+        }
+    }
+
     public function payment()
     {
-        var_dump($_POST);
+        $data['judul'] = 'Payment';
+        $this->view('templates/header', $data);
+        $this->view('user/payment', $data);
+        $this->view('templates/footer');
     }
 }

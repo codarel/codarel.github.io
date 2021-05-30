@@ -183,4 +183,43 @@ class Admin_model
 
         return $this->db->rowCount();
     }
+
+    public function addOrder($user_id)
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $id = uniqid();
+        $this->db->query('CALL add_order(:id, :user_id, :shipping, :amount)');
+        $this->db->bind('id', $id);
+        $this->db->bind('user_id', $user_id);
+        $this->db->bind('shipping', $_POST['shipping']);
+        $this->db->bind('amount', $_POST['amount']);
+        $this->db->execute();
+
+        return $id;
+    }
+
+    public function addOrderItems($order_id)
+    {
+        $count = count($_POST['quantity']);
+        for ($i = 0; $i < $count; $i++) {
+            $this->db->query('INSERT INTO order_items (order_id, product_id, size, quantity, subtotal) VALUES (:order_id, :product_id, :size, :quantity, :subtotal)');
+            $this->db->bind('order_id', $order_id);
+            $this->db->bind('product_id', $_POST['product_id'][$i]);
+            $this->db->bind('size', $_POST['size'][$i]);
+            $this->db->bind('quantity', $_POST['quantity'][$i]);
+            $this->db->bind('subtotal', $_POST['subtotal'][$i]);
+            $this->db->execute();
+        }
+
+        return $this->db->rowCount();
+    }
+
+    public function deleteAllItemCart($user_id)
+    {
+        $this->db->query('DELETE FROM cart WHERE user_id = :user_id');
+        $this->db->bind('user_id', $user_id);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }
