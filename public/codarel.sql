@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2021 at 01:51 PM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: May 30, 2021 at 05:42 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,6 +25,10 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_order` (IN `order_id` VARCHAR(255), IN `user_id` INT(11), IN `shipping` INT(11), IN `amount` INT(11))  begin
+INSERT INTO orders (id, user_id, order_status, shipping, amount, created_at) VALUES (order_id, user_id, 1, shipping, amount, now());
+end$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_product` (IN `sku` VARCHAR(255), IN `name` VARCHAR(255), IN `description` TEXT, IN `product_image` VARCHAR(255), IN `regular_price` INT(11), IN `discount_price` INT(11), IN `weight` FLOAT, IN `category` VARCHAR(50))  begin
 insert into products (sku, name, description, product_image, regular_price, discount_price, weight, category, created_at) values (sku, name, description, product_image, regular_price, discount_price, weight, category, now());
 end$$
@@ -72,6 +76,37 @@ CREATE TABLE `cart` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `size`, `quantity`, `created_at`, `updated_at`) VALUES
+(4, 2, 1, 'L', 1, '2021-05-30 11:17:40', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `cart_detail`
+-- (See below for the actual view)
+--
+CREATE TABLE `cart_detail` (
+`id` int(11)
+,`user_id` int(11)
+,`product_id` int(11)
+,`size` varchar(20)
+,`quantity` int(11)
+,`created_at` datetime
+,`updated_at` datetime
+,`sku` varchar(255)
+,`name` varchar(255)
+,`description` text
+,`product_image` varchar(255)
+,`regular_price` int(11)
+,`discount_price` int(11)
+,`weight` float
+,`category` varchar(50)
+);
+
 -- --------------------------------------------------------
 
 --
@@ -79,7 +114,7 @@ CREATE TABLE `cart` (
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `order_status` int(11) NOT NULL DEFAULT 1,
   `shipping` int(11) NOT NULL DEFAULT 0,
@@ -93,20 +128,21 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_status`, `shipping`, `amount`, `created_at`, `updated_at`) VALUES
-(3, 2, 3, 12000, 100000, '2021-05-17 21:04:41', '2021-05-17 21:07:53');
+('60b348fd485f2', 1, 1, 12000, 462000, '2021-05-30 15:12:45', NULL),
+('60b3492db532b', 1, 1, 12000, 112000, '2021-05-30 15:13:33', NULL);
 
 --
 -- Triggers `orders`
 --
 DELIMITER $$
 CREATE TRIGGER `insert_order_logs` AFTER INSERT ON `orders` FOR EACH ROW begin 
-insert into order_logs (id, order_id, order_status, created_at) values ('', new.id, new.order_status, now());
+insert into order_logs (order_id, order_status, created_at) values ( new.id, new.order_status, now());
 end
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert_order_logs_update` AFTER UPDATE ON `orders` FOR EACH ROW begin 
-insert into order_logs (id, order_id, order_status, created_at) values ('', new.id, new.order_status, now());
+insert into order_logs (order_id, order_status, created_at) values ( new.id, new.order_status, now());
 end
 $$
 DELIMITER ;
@@ -119,7 +155,7 @@ DELIMITER ;
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
   `product_id` int(11) NOT NULL,
   `size` varchar(20) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -131,7 +167,10 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `size`, `quantity`, `subtotal`) VALUES
-(1, 3, 1, 'M', 1, 100000);
+(1, '60b348fd485f2', 1, 'M', 1, 100000),
+(2, '60b348fd485f2', 3, 'M', 1, 150000),
+(3, '60b348fd485f2', 25, 'M', 2, 200000),
+(4, '60b3492db532b', 1, 'M', 1, 100000);
 
 -- --------------------------------------------------------
 
@@ -141,7 +180,7 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `size`, `quantity`, `
 
 CREATE TABLE `order_logs` (
   `id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
   `order_status` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -151,9 +190,8 @@ CREATE TABLE `order_logs` (
 --
 
 INSERT INTO `order_logs` (`id`, `order_id`, `order_status`, `created_at`) VALUES
-(1, 3, 1, '2021-05-17 21:04:51'),
-(2, 3, 2, '2021-05-17 21:08:02'),
-(3, 3, 3, '2021-05-17 21:08:31');
+(1, '60b348fd485f2', 1, '2021-05-30 15:12:45'),
+(2, '60b3492db532b', 1, '2021-05-30 15:13:33');
 
 -- --------------------------------------------------------
 
@@ -185,20 +223,13 @@ INSERT INTO `order_statuses` (`id`, `name`) VALUES
 CREATE TABLE `payment` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `order_id` int(11) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
   `sender_name` varchar(255) NOT NULL,
   `amount` int(11) NOT NULL DEFAULT 0,
   `payment_image` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `confirm` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `payment`
---
-
-INSERT INTO `payment` (`id`, `email`, `order_id`, `sender_name`, `amount`, `payment_image`, `created_at`, `confirm`) VALUES
-(1, 'codarel.id@gmail.com', 3, 'Codarel', 112000, 'payment.jpg', '2021-05-17 21:08:02', 1);
 
 -- --------------------------------------------------------
 
@@ -430,11 +461,20 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure for view `cart_detail`
+--
+DROP TABLE IF EXISTS `cart_detail`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cart_detail`  AS  select `cart`.`id` AS `id`,`cart`.`user_id` AS `user_id`,`cart`.`product_id` AS `product_id`,`cart`.`size` AS `size`,`cart`.`quantity` AS `quantity`,`cart`.`created_at` AS `created_at`,`cart`.`updated_at` AS `updated_at`,`products`.`sku` AS `sku`,`products`.`name` AS `name`,`products`.`description` AS `description`,`products`.`product_image` AS `product_image`,`products`.`regular_price` AS `regular_price`,`products`.`discount_price` AS `discount_price`,`products`.`weight` AS `weight`,`products`.`category` AS `category` from (`cart` join `products` on(`cart`.`product_id` = `products`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `product_detail`
 --
 DROP TABLE IF EXISTS `product_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_detail`  AS SELECT `products`.`id` AS `id`, `products`.`sku` AS `sku`, `products`.`name` AS `name`, `products`.`description` AS `description`, `products`.`product_image` AS `product_image`, `products`.`regular_price` AS `regular_price`, `products`.`discount_price` AS `discount_price`, `products`.`weight` AS `weight`, `products`.`category` AS `category`, `stock`.`id` AS `stock_id`, `stock`.`size` AS `size`, `stock`.`quantity` AS `quantity`, `stock`.`created_at` AS `created_at`, `stock`.`updated_at` AS `updated_at` FROM (`products` join `stock` on(`products`.`id` = `stock`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_detail`  AS  select `products`.`id` AS `id`,`products`.`sku` AS `sku`,`products`.`name` AS `name`,`products`.`description` AS `description`,`products`.`product_image` AS `product_image`,`products`.`regular_price` AS `regular_price`,`products`.`discount_price` AS `discount_price`,`products`.`weight` AS `weight`,`products`.`category` AS `category`,`stock`.`id` AS `stock_id`,`stock`.`size` AS `size`,`stock`.`quantity` AS `quantity`,`stock`.`created_at` AS `created_at`,`stock`.`updated_at` AS `updated_at` from (`products` join `stock` on(`products`.`id` = `stock`.`product_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -542,25 +582,19 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `order_logs`
 --
 ALTER TABLE `order_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_statuses`
@@ -572,7 +606,7 @@ ALTER TABLE `order_statuses`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -631,15 +665,15 @@ ALTER TABLE `cart`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_statuses` (`id`);
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`order_status`) REFERENCES `order_statuses` (`id`),
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `order_items_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 --
 -- Constraints for table `order_logs`
