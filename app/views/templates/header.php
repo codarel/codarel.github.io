@@ -128,7 +128,7 @@
 
                                 <?php if (isset($_SESSION['email'])) : ?>
                                     <!-- Shopping Item -->
-                                    <div class="shopping-item">
+                                    <!-- <div class="shopping-item">
                                         <div class="dropdown-cart-header">
                                             <span><?php if (isset($data['ccart'])) {
                                                         echo $data['ccart'];
@@ -157,7 +157,7 @@
                                             </div>
                                             <a href="<?= BASEURL; ?>" class="btn animate">Checkout</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!--/ End Shopping Item -->
                                 <?php endif; ?>
                             </div>
