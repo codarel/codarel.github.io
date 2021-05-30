@@ -130,10 +130,11 @@
                                     <!-- Shopping Item -->
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
-                                            <span><?= $data['ccart']; ?> Items</span>
+                                            <span><?php if (isset($data['ccart'])) {
+                                                        echo $data['ccart'];
+                                                    } ?> Items</span>
                                             <a href="#">View Cart</a>
                                         </div>
-
                                         <ul class="shopping-list">
                                             <li>
                                                 <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
@@ -178,16 +179,13 @@
                                         <div class="nav-inner">
                                             <ul class="nav main-menu menu navbar-nav">
                                                 <li class="active"><a href="<?= BASEURL; ?>">Home</a></li>
-                                                <li><a href="#">Product</a></li>
-                                                <li><a href="#">Service</a></li>
                                                 <li><a href="<?= BASEURL; ?>shop">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
                                                     <ul class="dropdown">
+                                                        <li><a href="<?= BASEURL; ?>shop">Shop</a></li>
                                                         <li><a href="<?= BASEURL; ?>shop/grid">Shop Grid</a></li>
                                                         <li><a href="<?= BASEURL; ?>user/cart">Cart</a></li>
-                                                        <li><a href="<?= BASEURL; ?>user/checkout">Checkout</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="#">Pages</a></li>
                                                 <li><a href="<?= BASEURL; ?>shop/blog">Blog<i class="ti-angle-down"></i></a>
                                                     <ul class="dropdown">
                                                         <li><a href="<?= BASEURL; ?>shop/blog">Blog Single Sidebar</a>
@@ -203,9 +201,9 @@
                                                     <?php if ($_SESSION['role_id'] === '1') : ?>
                                                         <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
                                                             <ul class="dropdown">
+                                                                <li><a href="<?= BASEURL; ?>admin">Admin</a></li>
                                                                 <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
-                                                                <li><a href="<?= BASEURL; ?>">Cart</a></li>
-                                                                <li><a href="<?= BASEURL; ?>">Checkout</a></li>
+                                                                <li><a href="<?= BASEURL; ?>admin/stock">Tambah Data Stok</a></li>
                                                             </ul>
                                                         </li>
                                                     <?php endif; ?>

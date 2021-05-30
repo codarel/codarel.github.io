@@ -133,18 +133,18 @@ class Admin extends Controller
         }
     }
 
-    public function stok()
+    public function stock()
     {
         if ($this->return == true) {
             $data['judul'] = 'Tambah Data Stok Produk';
             $data['products'] = $this->model('Admin_model')->getAllProduct();
             $this->view('templates/header', $data);
-            $this->view('admin/stok', $data);
+            $this->view('admin/stock', $data);
             $this->view('templates/footer');
         }
     }
 
-    public function savestok()
+    public function savestock()
     {
         var_dump($_POST);
         $stock = $this->model("Admin_model")->getStockByProductIdAndSize($_POST['product_id'], $_POST['size']);

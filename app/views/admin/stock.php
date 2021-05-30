@@ -8,7 +8,7 @@
                     <?php Flasher::flash(); ?>
                 </div>
             </div>
-            <form action="<?= BASEURL; ?>admin/savestok" method="post" enctype="multipart/form-data">
+            <form action="<?= BASEURL; ?>admin/savestock" method="post" enctype="multipart/form-data">
                 <div class="form-group row">
                     <label for="product_id" class="col-sm-2 col-form-label">SKU Produk</label>
                     <div class="col-sm-10">

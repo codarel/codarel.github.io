@@ -110,7 +110,7 @@
         <h2>Tabel Stok Produk</h2>
         <div class="row">
             <div class="col-lg-12">
-                <a href="<?= BASEURL; ?>admin/stok" class="btn bg-primary text-white mt-2">Tambah Data Stok Produk</a>
+                <a href="<?= BASEURL; ?>admin/stock" class="btn bg-primary text-white mt-2">Tambah Data Stok Produk</a>
             </div>
         </div>
         <table class="table table-striped table-hover table-responsive">

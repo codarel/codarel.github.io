@@ -42,10 +42,15 @@ class User extends Controller
     {
         $data['judul'] = 'My Cart';
         $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
-        $data['cart'] = $this->model("User_model")->getDetailCartByEmail($_SESSION['email']);
-        $this->view('templates/header', $data);
-        $this->view('user/cart', $data);
-        $this->view('templates/footer');
+        if ($data['ccart'] != 0) {
+            $data['cart'] = $this->model("User_model")->getDetailCartByEmail($_SESSION['email']);
+            $this->view('templates/header', $data);
+            $this->view('user/cart', $data);
+            $this->view('templates/footer');
+        } else {
+            Flasher::setFlash('Anda', 'belum menambahkan apapun', 'danger');
+            header('Location: ' . BASEURL);
+        }
     }
 
     public function checkout()
