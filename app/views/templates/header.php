@@ -186,6 +186,9 @@
                                                         <li><a href="<?= BASEURL; ?>user/cart">Cart</a></li>
                                                     </ul>
                                                 </li>
+                                                <?php if (isset($_SESSION['email'])) : ?>
+                                                    <li><a href="<?= BASEURL; ?>user/payment">Konfirmasi Pembayaran</a></li>
+                                                <?php endif; ?>
                                                 <li><a href="<?= BASEURL; ?>shop/blog">Blog<i class="ti-angle-down"></i></a>
                                                     <ul class="dropdown">
                                                         <li><a href="<?= BASEURL; ?>shop/blog">Blog Single Sidebar</a>

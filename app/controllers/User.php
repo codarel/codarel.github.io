@@ -103,10 +103,8 @@ class User extends Controller
     public function addorder()
     {
         if ($_POST != null) {
-            var_dump($_POST);
             $user = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
             $id = $this->model("Admin_model")->addOrder($user['id']);
-            var_dump($id);
             $data = $this->model("Admin_model")->addOrderItems($id);
             if ($data == 1) {
                 $this->model("Admin_model")->deleteAllItemCart($user['id']);
@@ -124,9 +122,25 @@ class User extends Controller
 
     public function payment()
     {
+        $id = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
+        $data['orders'] = $this->model("Admin_model")->getOrderByUserId($id['id']);
         $data['judul'] = 'Payment';
         $this->view('templates/header', $data);
         $this->view('user/payment', $data);
         $this->view('templates/footer');
+    }
+
+    public function savepayment()
+    {
+        $file = $_FILES['payment_image'];
+        $image = Uploader::uploadSingle($file);
+        $data = $this->model("User_model")->addPayment($image);
+        if ($data == 1) {
+            Flasher::setFlash('Konfirmasi pembayaran berhasil,', 'tunggu konfirmasi dari admin', 'success');
+            header('Location: ' . BASEURL . 'user');
+        } else {
+            Flasher::setFlash('Konfirmasi pembayaran', 'gagal', 'danger');
+            header('Location: ' . BASEURL . 'user/payment');
+        }
     }
 }

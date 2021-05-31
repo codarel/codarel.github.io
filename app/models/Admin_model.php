@@ -84,6 +84,13 @@ class Admin_model
         return $this->db->single();
     }
 
+    public function getOrderByUserId($user_id)
+    {
+        $this->db->query('SELECT * FROM orders WHERE user_id=:user_id');
+        $this->db->bind('user_id', $user_id);
+        return $this->db->resultSet();
+    }
+
     public function deleteProduct($id)
     {
         $this->db->query('SET foreign_key_checks = 0');

@@ -2,7 +2,6 @@
 
 class User_model
 {
-    private $nama = 'Huda';
     private $db;
 
     public function __construct()
@@ -72,5 +71,18 @@ class User_model
         $this->db->execute();
 
         return $this->db->resultSet();
+    }
+
+    public function addPayment($image)
+    {
+        $this->db->query('CALL add_payment(:email, :order_id, :sender_name, :amount, :payment_image)');
+        $this->db->bind('email', $_POST['email']);
+        $this->db->bind('order_id', $_POST['orderid']);
+        $this->db->bind('sender_name', $_POST['sender']);
+        $this->db->bind('amount', $_POST['amount']);
+        $this->db->bind('payment_image', $image);
+        $this->db->execute();
+
+        return $this->db->rowCount();
     }
 }
