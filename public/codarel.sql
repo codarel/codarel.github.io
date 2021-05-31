@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2021 at 11:58 AM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: May 31, 2021 at 04:28 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,6 +27,10 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_order` (IN `order_id` VARCHAR(255), IN `user_id` INT(11), IN `shipping` INT(11), IN `amount` INT(11))  begin
 INSERT INTO orders (id, user_id, order_status, shipping, amount, created_at) VALUES (order_id, user_id, 1, shipping, amount, now());
+end$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_payment` (IN `email` VARCHAR(255), IN `order_id` VARCHAR(255), IN `sender_name` VARCHAR(255), IN `amount` INT(11), IN `payment_image` VARCHAR(255))  begin
+INSERT INTO payment (email, order_id, sender_name, amount, payment_image, created_at, confirm) VALUES (email, order_id, sender_name, amount, payment_image, now(), 0);
 end$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_product` (IN `sku` VARCHAR(255), IN `name` VARCHAR(255), IN `description` TEXT, IN `product_image` VARCHAR(255), IN `regular_price` INT(11), IN `discount_price` INT(11), IN `weight` FLOAT, IN `category` VARCHAR(50))  begin
@@ -230,6 +234,13 @@ CREATE TABLE `payment` (
   `created_at` datetime NOT NULL,
   `confirm` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `email`, `order_id`, `sender_name`, `amount`, `payment_image`, `created_at`, `confirm`) VALUES
+(1, 'mochamadnurulhuda16@gmail.com', '60b3492db532b', 'Mochamad Nurul Huda', 100000, '60b4bb36366bd.jpg', '2021-05-31 17:32:22', 0);
 
 -- --------------------------------------------------------
 
@@ -495,7 +506,7 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 --
 DROP TABLE IF EXISTS `cart_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cart_detail`  AS SELECT `cart`.`id` AS `id`, `cart`.`user_id` AS `user_id`, `cart`.`product_id` AS `product_id`, `cart`.`size` AS `size`, `cart`.`quantity` AS `quantity`, `cart`.`created_at` AS `created_at`, `cart`.`updated_at` AS `updated_at`, `products`.`sku` AS `sku`, `products`.`name` AS `name`, `products`.`description` AS `description`, `products`.`product_image` AS `product_image`, `products`.`regular_price` AS `regular_price`, `products`.`discount_price` AS `discount_price`, `products`.`weight` AS `weight`, `products`.`category` AS `category` FROM (`cart` join `products` on(`cart`.`product_id` = `products`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cart_detail`  AS  select `cart`.`id` AS `id`,`cart`.`user_id` AS `user_id`,`cart`.`product_id` AS `product_id`,`cart`.`size` AS `size`,`cart`.`quantity` AS `quantity`,`cart`.`created_at` AS `created_at`,`cart`.`updated_at` AS `updated_at`,`products`.`sku` AS `sku`,`products`.`name` AS `name`,`products`.`description` AS `description`,`products`.`product_image` AS `product_image`,`products`.`regular_price` AS `regular_price`,`products`.`discount_price` AS `discount_price`,`products`.`weight` AS `weight`,`products`.`category` AS `category` from (`cart` join `products` on(`cart`.`product_id` = `products`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -504,7 +515,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `product_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_detail`  AS SELECT `products`.`id` AS `id`, `products`.`sku` AS `sku`, `products`.`name` AS `name`, `products`.`description` AS `description`, `products`.`product_image` AS `product_image`, `products`.`regular_price` AS `regular_price`, `products`.`discount_price` AS `discount_price`, `products`.`weight` AS `weight`, `products`.`category` AS `category`, `stock`.`id` AS `stock_id`, `stock`.`size` AS `size`, `stock`.`quantity` AS `quantity`, `stock`.`created_at` AS `created_at`, `stock`.`updated_at` AS `updated_at` FROM (`products` join `stock` on(`products`.`id` = `stock`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_detail`  AS  select `products`.`id` AS `id`,`products`.`sku` AS `sku`,`products`.`name` AS `name`,`products`.`description` AS `description`,`products`.`product_image` AS `product_image`,`products`.`regular_price` AS `regular_price`,`products`.`discount_price` AS `discount_price`,`products`.`weight` AS `weight`,`products`.`category` AS `category`,`stock`.`id` AS `stock_id`,`stock`.`size` AS `size`,`stock`.`quantity` AS `quantity`,`stock`.`created_at` AS `created_at`,`stock`.`updated_at` AS `updated_at` from (`products` join `stock` on(`products`.`id` = `stock`.`product_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -636,7 +647,7 @@ ALTER TABLE `order_statuses`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
