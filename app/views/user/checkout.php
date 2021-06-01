@@ -10,7 +10,7 @@
                         <?php foreach ($data['address'] as $address) : ?>
                             <div class="card card-header text-sm my-3 font-monospace p-1">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="address" id="address<?= $address['id']; ?>" value="<?= $address['id']; ?>">
+                                    <input class="form-check-input" type="radio" name="address" id="address<?= $address['id']; ?>" value="<?= $address['id']; ?>" required>
                                     <label class="form-check-label" for="address<?= $address['id']; ?>">
                                         Nama: <?= $address['fullname']; ?>,Telepon: <?= $address['phone']; ?>, Alamat: <?= $address['street_name']; ?> <?= $address['city']; ?> - <?= $address['districts']; ?> <?= $address['province']; ?> ID <?= $address['postcode']; ?>
                                     </label>

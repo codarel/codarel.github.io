@@ -20,6 +20,11 @@ class User extends Controller
             $data['judul'] = 'My Account';
             $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
             $data['address'] = $this->model("User_model")->getAddressByUserId($data['user']['id']);
+            $data['belum_bayar'] = $this->model("User_model")->getDetailOrderByUserIdAndStatusWithGroup($data['user']['id'], 1);
+            $data['proses'] = $this->model("User_model")->getDetailOrderByUserIdAndStatusWithGroup($data['user']['id'], 2);
+            $data['selesai'] = $this->model("User_model")->getDetailOrderByUserIdAndStatusWithGroup($data['user']['id'], 3);
+            $data['detail'] = $this->model("User_model")->getDetailOrderByUserId($data['user']['id']);
+            $data['product'] = $this->model("Admin_model")->getAllProduct();
             $this->view('templates/header', $data);
             $this->view('user/index', $data);
             $this->view('templates/footer');
@@ -70,7 +75,6 @@ class User extends Controller
                 $data['count'] = count($_POST['quantity']);
                 $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
                 $data['address'] = $this->model("User_model")->getAddressByUserId($data['user']['id']);
-                var_dump($data['address']);
                 $data['judul'] = 'Checkout';
                 $this->view('templates/header', $data);
                 $this->view('user/checkout', $data);

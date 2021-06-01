@@ -97,8 +97,6 @@
 <script src="<?= BASEURL; ?>js/jquery-ui.min.js"></script>
 <!-- Popper JS -->
 <script src="<?= BASEURL; ?>js/popper.min.js"></script>
-<!-- Color JS -->
-<script src="<?= BASEURL; ?>js/colors.js"></script>
 <!-- Slicknav JS -->
 <script src="<?= BASEURL; ?>js/slicknav.min.js"></script>
 <!-- Owl Carousel JS -->

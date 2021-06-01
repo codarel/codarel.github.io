@@ -67,29 +67,12 @@
                     <div class="total-amount">
                         <div class="row">
                             <div class="col-lg-8 col-md-5 col-12">
-                                <div class="left">
-                                    <div class="coupon">
-                                        <form action="#" target="_blank">
-                                            <input name="Coupon" placeholder="Enter Your Coupon">
-                                            <button class="btn">Apply</button>
-                                        </form>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Shipping (+10$)</label>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-lg-4 col-md-7 col-12">
                                 <div class="right">
-                                    <ul>
-                                        <li>Cart Subtotal<span class="subtotal">0</span></li>
-                                        <li>Shipping<span>12000</span></li>
-                                        <li>You Save<span>0</span></li>
-                                        <li class="last">You Pay<span class="total">$310.00</span></li>
-                                    </ul>
                                     <div class="button5">
                                         <button type="submit" class="btn">Checkout</button>
-                                        <a href="#" class="btn">Continue shopping</a>
+                                        <a href="<?= BASEURL; ?>" class="btn">Continue shopping</a>
                                     </div>
                                 </div>
                             </div>

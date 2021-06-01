@@ -90,11 +90,11 @@
     </div>
 </div>
 
-<div class="container rounded bg-white mt-5 mb-5 border shadow">
+<div class="container rounded bg-white mt-5 mb-5 border shadow p-3">
     <div class="row">
         <div class="col-lg-12">
             <h3>Pesanan Saya</h3>
-            <nav>
+            <nav class="my-3">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-first-tab" data-bs-toggle="tab" data-bs-target="#nav-first" type="button" role="tab" aria-controls="nav-first" aria-selected="true">Belum Dibayar</button>
                     <button class="nav-link" id="nav-second-tab" data-bs-toggle="tab" data-bs-target="#nav-second" type="button" role="tab" aria-controls="nav-second" aria-selected="false">Sedang Diproses</button>
@@ -102,9 +102,100 @@
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-first" role="tabpanel" aria-labelledby="nav-first-tab">...</div>
-                <div class="tab-pane fade" id="nav-second" role="tabpanel" aria-labelledby="nav-second-tab">...</div>
-                <div class="tab-pane fade" id="nav-third" role="tabpanel" aria-labelledby="nav-third-tab">...</div>
+                <div class="tab-pane fade show active" id="nav-first" role="tabpanel" aria-labelledby="nav-first-tab">
+                    <?php foreach ($data['belum_bayar'] as $belum_bayar) : ?>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                <p class="">Order Id: <?= $belum_bayar['id']; ?></p>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                                <!-- Shopping Summery -->
+                                <table class="table shopping-summery">
+                                    <thead>
+                                        <tr class="main-hading">
+                                            <th>PRODUCT</th>
+                                            <th>NAME</th>
+                                            <th class="text-center">UNIT PRICE</th>
+                                            <th class="text-center">SIZE</th>
+                                            <th class="text-center">QUANTITY</th>
+                                            <th class="text-center">TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($data["detail"] as $detail) : ?>
+                                            <?php if ($belum_bayar['id'] === $detail['id']) : ?>
+                                                <tr>
+                                                    <?php foreach ($data['product'] as $product) : ?>
+                                                        <?php if ($detail['product_id'] === $product['id']) : ?>
+                                                            <?php $explode = explode(',', $product['product_image']); ?>
+                                                            <td class="image"><img src="<?= BASEURL; ?>img/<?= $explode[0]; ?>" alt="Product Image"></td>
+                                                            <td class="product-des" data-title="Description">
+                                                                <p class="product-name"><?= $product['name']; ?></p>
+                                                                <p class="product-desc"><?= $product['description']; ?></p>
+                                                            </td>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                    <td class="price" data-title="Price"><span><?= $detail['subtotal'] / $detail['quantity']; ?></span></td>
+                                                    <td class="size" data-title="Size"><span><?= $detail['size']; ?></span></td>
+                                                    <td class="qty" data-title="Qty">
+                                                        <span><?= $detail['quantity']; ?></span>
+                                                    </td>
+                                                    <td class="total-amount" data-title="Total"><span class="count"><?= $detail['subtotal']; ?></span></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <!--/ End Shopping Summery -->
+                            </div>
+                            <div class="card-footer text-muted d-flex flex-row bd-highlight justify-content-between">
+                                <div class="bd-highlight">
+                                    <p class="text-start">Ongkos Kirim: <?= $belum_bayar['shipping']; ?></p>
+                                </div>
+                                <div class="bd-highlight">
+                                    <p class="text-end">Total Pesanan: <?= $belum_bayar['amount']; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="tab-pane fade" id="nav-second" role="tabpanel" aria-labelledby="nav-second-tab">
+                    <?php foreach ($data['proses'] as $proses) : ?>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                Featured
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                2 days ago
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="tab-pane fade" id="nav-third" role="tabpanel" aria-labelledby="nav-third-tab">
+                    <?php foreach ($data['selesai'] as $selesai) : ?>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                Featured
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Special title treatment</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                2 days ago
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>

@@ -110,4 +110,19 @@ class User_model
         $this->db->bind('user_id', $user_id);
         return $this->db->resultSet();
     }
+
+    public function getDetailOrderByUserId($user_id)
+    {
+        $this->db->query('SELECT * FROM order_detail WHERE user_id=:user_id');
+        $this->db->bind('user_id', $user_id);
+        return $this->db->resultSet();
+    }
+
+    public function getDetailOrderByUserIdAndStatusWithGroup($user_id, $order_status)
+    {
+        $this->db->query('SELECT * FROM order_detail GROUP BY id HAVING user_id=:user_id AND order_status=:order_status');
+        $this->db->bind('user_id', $user_id);
+        $this->db->bind('order_status', $order_status);
+        return $this->db->resultSet();
+    }
 }
