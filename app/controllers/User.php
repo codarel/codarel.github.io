@@ -68,6 +68,9 @@ class User extends Controller
             if ($_POST != null) {
                 $data['post'] = $_POST;
                 $data['count'] = count($_POST['quantity']);
+                $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
+                $data['address'] = $this->model("User_model")->getAddressByUserId($data['user']['id']);
+                var_dump($data['address']);
                 $data['judul'] = 'Checkout';
                 $this->view('templates/header', $data);
                 $this->view('user/checkout', $data);
@@ -119,7 +122,7 @@ class User extends Controller
             $data = $this->model("Admin_model")->addOrderItems($id);
             if ($data == 1) {
                 $this->model("Admin_model")->deleteAllItemCart($user['id']);
-                Flasher::setFlash('Checkout', 'berhasil', 'success');
+                Flasher::setFlash('Checkout berhasil', "gunakan Order Id $id sebegai referensi pembayaran", 'success');
                 header('Location: ' . BASEURL . 'user/payment');
             } else {
                 Flasher::setFlash('Checkout', 'gagal', 'danger');

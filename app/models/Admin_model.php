@@ -194,11 +194,12 @@ class Admin_model
     public function addOrder($user_id)
     {
         $id = uniqid();
-        $this->db->query('CALL add_order(:id, :user_id, :shipping, :amount)');
+        $this->db->query('CALL add_order(:id, :user_id, :shipping, :amount, :address)');
         $this->db->bind('id', $id);
         $this->db->bind('user_id', $user_id);
         $this->db->bind('shipping', $_POST['shipping']);
         $this->db->bind('amount', $_POST['amount']);
+        $this->db->bind('address', $_POST['address']);
         $this->db->execute();
 
         return $id;
