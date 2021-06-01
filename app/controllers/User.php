@@ -2,21 +2,27 @@
 
 class User extends Controller
 {
+    private $return;
     public function __construct()
     {
         if (!$_SESSION['email']) {
             Flasher::setFlash('Anda belum', 'login', 'danger');
             header('Location: ' . BASEURL . 'auth');
+        } else {
+            $this->return = true;
+            return $this->return;
         }
     }
 
     public function index()
     {
-        $data['judul'] = 'My Account';
-        $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
-        $this->view('templates/header', $data);
-        $this->view('user/index', $data);
-        $this->view('templates/footer');
+        if ($this->return == true) {
+            $data['judul'] = 'My Account';
+            $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
+            $this->view('templates/header', $data);
+            $this->view('user/index', $data);
+            $this->view('templates/footer');
+        }
     }
 
     public function addtocart($id)
@@ -40,31 +46,35 @@ class User extends Controller
 
     public function cart()
     {
-        $data['judul'] = 'My Cart';
-        $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
-        if ($data['ccart'] != 0) {
-            $data['cart'] = $this->model("User_model")->getDetailCartByEmail($_SESSION['email']);
-            $this->view('templates/header', $data);
-            $this->view('user/cart', $data);
-            $this->view('templates/footer');
-        } else {
-            Flasher::setFlash('Anda', 'belum menambahkan apapun', 'danger');
-            header('Location: ' . BASEURL);
+        if ($this->return == true) {
+            $data['judul'] = 'My Cart';
+            $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
+            if ($data['ccart'] != 0) {
+                $data['cart'] = $this->model("User_model")->getDetailCartByEmail($_SESSION['email']);
+                $this->view('templates/header', $data);
+                $this->view('user/cart', $data);
+                $this->view('templates/footer');
+            } else {
+                Flasher::setFlash('Anda', 'belum menambahkan apapun', 'danger');
+                header('Location: ' . BASEURL);
+            }
         }
     }
 
     public function checkout()
     {
-        if ($_POST != null) {
-            $data['post'] = $_POST;
-            $data['count'] = count($_POST['quantity']);
-            $data['judul'] = 'Checkout';
-            $this->view('templates/header', $data);
-            $this->view('user/checkout', $data);
-            $this->view('templates/footer');
-        } else {
-            Flasher::setFlash('Anda belum', 'memilih produk', 'danger');
-            header('Location: ' . BASEURL);
+        if ($this->return == true) {
+            if ($_POST != null) {
+                $data['post'] = $_POST;
+                $data['count'] = count($_POST['quantity']);
+                $data['judul'] = 'Checkout';
+                $this->view('templates/header', $data);
+                $this->view('user/checkout', $data);
+                $this->view('templates/footer');
+            } else {
+                Flasher::setFlash('Anda belum', 'memilih produk', 'danger');
+                header('Location: ' . BASEURL);
+            }
         }
     }
 
@@ -122,12 +132,14 @@ class User extends Controller
 
     public function payment()
     {
-        $id = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
-        $data['orders'] = $this->model("Admin_model")->getOrderByUserId($id['id']);
-        $data['judul'] = 'Payment';
-        $this->view('templates/header', $data);
-        $this->view('user/payment', $data);
-        $this->view('templates/footer');
+        if ($this->return == true) {
+            $id = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
+            $data['orders'] = $this->model("Admin_model")->getOrderByUserId($id['id']);
+            $data['judul'] = 'Payment';
+            $this->view('templates/header', $data);
+            $this->view('user/payment', $data);
+            $this->view('templates/footer');
+        }
     }
 
     public function savepayment()
