@@ -49,8 +49,8 @@
                         <!-- Top Left -->
                         <div class="top-left">
                             <ul class="list-main">
-                                <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
-                                <li><i class="ti-email"></i> support@shophub.com</li>
+                                <li><i class="ti-headphone-alt"></i> +62 812 4233 7968</li>
+                                <li><i class="ti-email"></i> codarel@gmail.com</li>
                             </ul>
                         </div>
                         <!--/ End Top Left -->
@@ -102,9 +102,6 @@
                             <div class="search-bar">
                                 <select>
                                     <option selected="selected">All Category</option>
-                                    <option>watch</option>
-                                    <option>mobile</option>
-                                    <option>kid’s item</option>
                                 </select>
                                 <form>
                                     <input name="search" placeholder="Search Products Here....." type="search">
@@ -116,9 +113,6 @@
                     <div class="col-lg-2 col-md-3 col-12">
                         <div class="right-bar">
                             <!-- Search Form -->
-                            <div class="sinlge-bar">
-                                <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                            </div>
                             <div class="sinlge-bar shopping">
                                 <a href="<?= BASEURL; ?>user/cart" class="single-icon"><i class="fas fa-shopping-cart"></i>
                                     <?php if (isset($data['ccart'])) : ?>
@@ -182,21 +176,15 @@
                                                 <li><a href="<?= BASEURL; ?>shop">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
                                                     <ul class="dropdown">
                                                         <li><a href="<?= BASEURL; ?>shop">Shop</a></li>
-                                                        <li><a href="<?= BASEURL; ?>shop/grid">Shop Grid</a></li>
                                                         <li><a href="<?= BASEURL; ?>user/cart">Cart</a></li>
                                                     </ul>
                                                 </li>
                                                 <?php if (isset($_SESSION['email'])) : ?>
                                                     <li><a href="<?= BASEURL; ?>user/payment">Konfirmasi Pembayaran</a></li>
                                                 <?php endif; ?>
-                                                <li><a href="<?= BASEURL; ?>shop/blog">Blog<i class="ti-angle-down"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="<?= BASEURL; ?>shop/blog">Blog Single Sidebar</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
                                                 <li><a href="<?= BASEURL; ?>about">About Us<i class="ti-angle-down"></i></a>
                                                     <ul class="dropdown">
+                                                        <li><a href="<?= BASEURL; ?>about">About Us</a></li>
                                                         <li><a href="<?= BASEURL; ?>about/contact">Contact Us</a></li>
                                                     </ul>
                                                 </li>

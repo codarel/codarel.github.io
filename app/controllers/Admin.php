@@ -22,6 +22,12 @@ class Admin extends Controller
         if ($this->return == true) {
             $data['judul'] = 'Admin';
             $data['users'] = $this->model('Auth_model')->getAllUser();
+            $data['orders'] = $this->model('Admin_model')->getAllOrder();
+            $data['items'] = $this->model('Admin_model')->getAllOrderItems();
+            $data['payment'] = $this->model('Admin_model')->getAllPayment();
+            // var_dump($data['orders']);
+            // var_dump($data['items']);
+            // var_dump($data['payment']);
             $data['products'] = $this->model('Admin_model')->getAllProduct();
             $data['stocks'] = $this->model('Admin_model')->getAllDetailProduct();
             $this->view('templates/header', $data);

@@ -10,8 +10,8 @@
                         <div class="logo ">
                             <a href="index.html"><img src="<?= BASEURL; ?>img/merk-w.png" alt="#" class="img-fluid" width="50%"></a>
                         </div>
-                        <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                        <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
+                        <p class="text">Launched in 2021, it is a platform tailored for the region, providing customers with an easy, secure and fast online shopping experience through strong payment and fulfillment support.</p>
+                        <p class="call">Got Question? Call us 24/7<span><a href="tel:081242337968">+62 812 4233 7968</a></span></p>
                     </div>
                     <!-- End Single Widget -->
                 </div>
@@ -20,10 +20,10 @@
                     <div class="single-footer links">
                         <h4>Information</h4>
                         <ul>
-                            <li><a href="#">About Us</a></li>
+                            <li><a href="<?= BASEURL; ?>about">About Us</a></li>
                             <li><a href="#">Faq</a></li>
                             <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="<?= BASEURL; ?>about/contact">Contact Us</a></li>
                             <li><a href="#">Help</a></li>
                         </ul>
                     </div>
@@ -50,10 +50,10 @@
                         <!-- Single Widget -->
                         <div class="contact">
                             <ul>
-                                <li>NO. 342 - London Oxford Street.</li>
-                                <li>012 United Kingdom.</li>
-                                <li>info@eshop.com</li>
-                                <li>+032 3456 7890</li>
+                                <li>NO. 17 - Jl.Cibiru.</li>
+                                <li>Bandung.</li>
+                                <li>codarel.com</li>
+                                <li>+62 812 4233 7968</li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->

@@ -91,6 +91,30 @@ class Admin_model
         return $this->db->resultSet();
     }
 
+    public function getAllOrder()
+    {
+        $this->db->query('SELECT * FROM orders');
+        return $this->db->resultSet();
+    }
+
+    public function getAllPayment()
+    {
+        $this->db->query('SELECT * FROM payment');
+        return $this->db->resultSet();
+    }
+
+    public function getAllOrderItems()
+    {
+        $this->db->query('SELECT * FROM order_items');
+        return $this->db->resultSet();
+    }
+
+    public function getAllDetailOrder()
+    {
+        $this->db->query('SELECT * FROM order_detail');
+        return $this->db->resultSet();
+    }
+
     public function deleteProduct($id)
     {
         $this->db->query('SET foreign_key_checks = 0');
