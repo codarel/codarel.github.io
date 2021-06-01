@@ -193,7 +193,6 @@ class Admin_model
 
     public function addOrder($user_id)
     {
-        date_default_timezone_set("Asia/Jakarta");
         $id = uniqid();
         $this->db->query('CALL add_order(:id, :user_id, :shipping, :amount)');
         $this->db->bind('id', $id);

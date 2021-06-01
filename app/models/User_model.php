@@ -85,4 +85,29 @@ class User_model
 
         return $this->db->rowCount();
     }
+
+    public function addAddress($user_id)
+    {
+        date_default_timezone_set("Asia/Jakarta");
+        $this->db->query('INSERT INTO user_address (user_id, fullname, street_name, province, city, districts, postcode, phone, created_at) VALUES (:user_id, :fullname, :street_name, :province, :city, :districts, :postcode, :phone, :created_at)');
+        $this->db->bind('user_id', $user_id);
+        $this->db->bind('fullname', $_POST['fullname']);
+        $this->db->bind('street_name', $_POST['street_name']);
+        $this->db->bind('province', $_POST['province']);
+        $this->db->bind('city', $_POST['city']);
+        $this->db->bind('districts', $_POST['districts']);
+        $this->db->bind('postcode', $_POST['postcode']);
+        $this->db->bind('phone', $_POST['phone']);
+        $this->db->bind('created_at', date("Y-m-d H:i:s"));
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function getAddressByUserId($user_id)
+    {
+        $this->db->query('SELECT * FROM user_address WHERE user_id=:user_id');
+        $this->db->bind('user_id', $user_id);
+        return $this->db->resultSet();
+    }
 }

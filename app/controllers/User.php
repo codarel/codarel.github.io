@@ -19,6 +19,7 @@ class User extends Controller
         if ($this->return == true) {
             $data['judul'] = 'My Account';
             $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
+            $data['address'] = $this->model("User_model")->getAddressByUserId($data['user']['id']);
             $this->view('templates/header', $data);
             $this->view('user/index', $data);
             $this->view('templates/footer');
@@ -153,6 +154,34 @@ class User extends Controller
         } else {
             Flasher::setFlash('Konfirmasi pembayaran', 'gagal', 'danger');
             header('Location: ' . BASEURL . 'user/payment');
+        }
+    }
+
+    public function address()
+    {
+        if ($this->return == true) {
+            $data['judul'] = "Tambah Alamat";
+            $this->view('templates/header', $data);
+            $this->view('user/address', $data);
+            $this->view('templates/footer');
+        }
+    }
+
+    public function addAddress()
+    {
+        if (isset($_POST)) {
+            $user = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
+            $data = $this->model("User_model")->addAddress($user['id']);
+            if ($data == 1) {
+                Flasher::setFlash('Alamat berhasil,', 'ditambahkan', 'success');
+                header('Location: ' . BASEURL . 'user');
+            } else {
+                Flasher::setFlash('Alamat gagal', 'ditambahkan', 'danger');
+                header('Location: ' . BASEURL . 'user/address');
+            }
+        } else {
+            Flasher::setFlash('Anda belum', 'memasukkan data apapun', 'danger');
+            header('Location: ' . BASEURL);
         }
     }
 }
