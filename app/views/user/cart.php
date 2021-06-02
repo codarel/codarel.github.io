@@ -26,7 +26,7 @@
                                     <td class="image" data-title="No"><img src="<?= BASEURL; ?>img/<?= $explode[0]; ?>" alt="#"></td>
                                     <td class="product-des" data-title="Description">
                                         <p class="product-name"><a href="#"><?= $cart['name']; ?></a></p>
-                                        <p class="product-des">Maboriosam in a tonto nesciung eget distingy magndapibus.</p>
+                                        <p class="product-description"><?= $cart['description']; ?></p>
                                     </td>
                                     <td class="price" data-title="Price"><span><?= ($cart['discount_price'] != 0) ? $cart['discount_price'] : $cart['regular_price']; ?> </span></td>
                                     <td class="size" data-title="Size"><span><?= $cart['size']; ?></span></td>
