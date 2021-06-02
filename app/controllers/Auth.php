@@ -48,7 +48,8 @@ class Auth extends Controller
     public function create()
     {
         $user = $this->model("Auth_model")->getUserByEmail($_POST['email']);
-        if (!isset($user)) {
+        var_dump($user['email'] == $_POST['email']);
+        if ($user['email'] != $_POST['email']) {
             if ($this->model('Auth_model')->createUser($_POST) > 0) {
                 if ($_POST['password'] === $_POST['confirm']) {
                     Flasher::setFlash('Akun berhasil', 'ditambahkan', 'success');
