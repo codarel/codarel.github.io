@@ -175,7 +175,17 @@
                         <td><?= $order['amount']; ?></td>
                         <td><?= $order['address_id']; ?></td>
                         <td>
-                            <a class="btn bg-warning text-white" href="<?= BASEURL; ?>admin"><i class="fas fa-edit"></i></a>
+                            <?php if ($order['order_status'] == 3) : ?>
+                                <button type="button" class="btn bg-success text-white disabled"><i class="fas fa-check"></i></button>
+                            <?php elseif ($order['order_status'] == 2) : ?>
+                                <form action="<?= BASEURL; ?>admin/updateorder/<?= $order['id']; ?>" method="post" class="d-inline">
+                                    <input type="hidden" name="_method" value="UPDATE">
+                                    <input type="hidden" name="orderstatus" value="3">
+                                    <button class="btn bg-danger text-white" onclick="return confirm('apakah anda yakin?');"><i class="fas fa-minus"></i></button>
+                                </form>
+                            <?php else : ?>
+                                <button type="button" class="btn bg-secondary text-white disabled"><i class="fas fa-minus"></i></button>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -246,7 +256,7 @@
                         <td><?= $payment['created_at']; ?></td>
                         <td>
                             <?php if ($payment['confirm'] == 1) : ?>
-                                <button type="button disable" class="btn bg-success text-white" href="<?= BASEURL; ?>admin"><i class="fas fa-check"></i></button>
+                                <button type="button" class="btn bg-success text-white disabled"><i class="fas fa-check"></i></button>
                             <?php else : ?>
                                 <form action="<?= BASEURL; ?>admin/confirm/<?= $payment['id']; ?>" method="post" class="d-inline">
                                     <input type="hidden" name="_method" value="UPDATE">

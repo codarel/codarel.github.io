@@ -25,6 +25,7 @@ class User extends Controller
             $data['selesai'] = $this->model("User_model")->getDetailOrderByUserIdAndStatusWithGroup($data['user']['id'], 3);
             $data['detail'] = $this->model("User_model")->getDetailOrderByUserId($data['user']['id']);
             $data['product'] = $this->model("Admin_model")->getAllProduct();
+            var_dump($data['proses']);
             $this->view('templates/header', $data);
             $this->view('user/index', $data);
             $this->view('templates/footer');
