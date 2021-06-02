@@ -5,6 +5,10 @@ class Shop extends Controller
     public function index()
     {
         $data['judul'] = 'Shop';
+        if (isset($_SESSION['email'])) {
+            $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
+        }
+        $data['products'] = $this->model("Admin_model")->getAllDetailProductWithGroup();
         $this->view('templates/header', $data);
         $this->view('shop/index', $data);
         $this->view('templates/footer');
@@ -25,14 +29,6 @@ class Shop extends Controller
         $data['judul'] = 'Shop Grid';
         $this->view('templates/header', $data);
         $this->view('shop/grid');
-        $this->view('templates/footer');
-    }
-
-    public function blog()
-    {
-        $data['judul'] = 'Blog';
-        $this->view('templates/header', $data);
-        $this->view('shop/blog');
         $this->view('templates/footer');
     }
 }

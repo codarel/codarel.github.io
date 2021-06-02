@@ -83,7 +83,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Trending Item</h2>
+                    <h2>Items</h2>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
                                                         <?php if (str_word_count($explode[0]) != 0) : ?>
                                                             <img class="default-img" src="<?= BASEURL; ?>img/<?= $explode[0]; ?>" alt="product_image">
                                                         <?php endif; ?>
-                                                        <img class=" hover-img" src="https://via.placeholder.com/550x750" alt="#">
+                                                        <img class="hover-img default-img" src="<?= (isset($explode[1])) ? BASEURL . 'img/' . $explode[1] : BASEURL . 'img/' . '550x750.png' ?>" alt="#">
                                                         <?php if ($product['discount_price'] != 0) : ?>
                                                             <span class="price-dec">
                                                                 <?= $discount["percentage_discount('" . $product['id'] . "')"]; ?>% OFF
@@ -127,15 +127,8 @@
                                                         <?php endif; ?>
                                                     </a>
                                                     <div class="button-head">
-                                                        <div class="product-action">
-                                                            <a data-toggle="modal" data-id="<?= $product['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                            <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-                                                                    Wishlist</span></a>
-                                                            <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to
-                                                                    Compare</span></a>
-                                                        </div>
                                                         <div class="product-action-2">
-                                                            <a title="Add to cart" href="#">Add to cart</a>
+                                                            <a title="Add to cart" href="<?= BASEURL; ?>shop/product/<?= $product['sku']; ?>">View Product</a>
                                                         </div>
                                                     </div>
                                                 </div>

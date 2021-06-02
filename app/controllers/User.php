@@ -17,6 +17,7 @@ class User extends Controller
     public function index()
     {
         if ($this->return == true) {
+            $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
             $data['judul'] = 'My Account';
             $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
             $data['address'] = $this->model("User_model")->getAddressByUserId($data['user']['id']);
@@ -25,7 +26,6 @@ class User extends Controller
             $data['selesai'] = $this->model("User_model")->getDetailOrderByUserIdAndStatusWithGroup($data['user']['id'], 3);
             $data['detail'] = $this->model("User_model")->getDetailOrderByUserId($data['user']['id']);
             $data['product'] = $this->model("Admin_model")->getAllProduct();
-            var_dump($data['proses']);
             $this->view('templates/header', $data);
             $this->view('user/index', $data);
             $this->view('templates/footer');
@@ -72,6 +72,7 @@ class User extends Controller
     {
         if ($this->return == true) {
             if ($_POST != null) {
+                $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
                 $data['post'] = $_POST;
                 $data['count'] = count($_POST['quantity']);
                 $data['user'] = $this->model('Auth_model')->getUserByEmail($_SESSION['email']);
@@ -142,6 +143,7 @@ class User extends Controller
     public function payment()
     {
         if ($this->return == true) {
+            $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
             $id = $this->model("Auth_model")->getUserByEmail($_SESSION['email']);
             $data['orders'] = $this->model("Admin_model")->getOrderByUserId($id['id']);
             $data['judul'] = 'Payment';
@@ -168,6 +170,7 @@ class User extends Controller
     public function address()
     {
         if ($this->return == true) {
+            $data['ccart'] = $this->model("User_model")->getCountCartByEmail($_SESSION['email']);
             $data['judul'] = "Tambah Alamat";
             $this->view('templates/header', $data);
             $this->view('user/address', $data);
