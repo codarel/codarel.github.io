@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2021 at 12:12 PM
+-- Generation Time: Jun 02, 2021 at 04:36 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -85,7 +85,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `size`, `quantity`, `created_at`, `updated_at`) VALUES
-(4, 2, 1, 'L', 1, '2021-05-30 11:17:40', NULL);
+(4, 2, 1, 'L', 1, '2021-05-30 11:17:40', NULL),
+(11, 1, 28, 'L', 1, '2021-06-01 21:39:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -133,9 +134,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_status`, `shipping`, `amount`, `address_id`, `created_at`, `updated_at`) VALUES
-('60b348fd485f2', 1, 1, 12000, 462000, NULL, '2021-05-30 15:12:45', NULL),
-('60b3492db532b', 1, 1, 12000, 112000, NULL, '2021-05-30 15:13:33', NULL),
-('60b6031a13249', 1, 1, 12000, 241000, 1, '2021-06-01 16:51:22', NULL);
+('60b348fd485f2', 1, 2, 12000, 462000, 1, '2021-05-30 15:12:45', NULL),
+('60b3492db532b', 1, 3, 12000, 112000, 1, '2021-05-30 15:13:33', NULL),
+('60b6031a13249', 1, 1, 12000, 241000, 1, '2021-06-01 16:51:22', NULL),
+('60b63dceadf88', 1, 1, 12000, 112000, 1, '2021-06-01 21:01:50', NULL),
+('60b6421ba6f47', 1, 1, 12000, 162000, NULL, '2021-06-01 21:20:11', NULL),
+('60b6429659aaa', 1, 1, 12000, 112000, 2, '2021-06-01 21:22:14', NULL);
 
 --
 -- Triggers `orders`
@@ -165,14 +169,12 @@ CREATE TABLE `order_detail` (
 ,`shipping` int(11)
 ,`amount` int(11)
 ,`address_id` int(11)
+,`order_status` int(11)
 ,`item_id` int(11)
 ,`product_id` int(11)
 ,`size` varchar(20)
 ,`quantity` int(11)
 ,`subtotal` int(11)
-,`logs_id` int(11)
-,`order_status` int(11)
-,`created_at` datetime
 );
 
 -- --------------------------------------------------------
@@ -200,7 +202,10 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `size`, `quantity`, `
 (3, '60b348fd485f2', 25, 'M', 2, 200000),
 (4, '60b3492db532b', 1, 'M', 1, 100000),
 (5, '60b6031a13249', 1, 'M', 1, 100000),
-(6, '60b6031a13249', 27, 'M', 1, 129000);
+(6, '60b6031a13249', 27, 'M', 1, 129000),
+(7, '60b63dceadf88', 1, 'M', 1, 100000),
+(8, '60b6421ba6f47', 3, 'M', 1, 150000),
+(9, '60b6429659aaa', 25, 'M', 1, 100000);
 
 -- --------------------------------------------------------
 
@@ -222,7 +227,15 @@ CREATE TABLE `order_logs` (
 INSERT INTO `order_logs` (`id`, `order_id`, `order_status`, `created_at`) VALUES
 (1, '60b348fd485f2', 1, '2021-05-30 15:12:45'),
 (2, '60b3492db532b', 1, '2021-05-30 15:13:33'),
-(3, '60b6031a13249', 1, '2021-06-01 16:51:22');
+(3, '60b6031a13249', 1, '2021-06-01 16:51:22'),
+(4, '60b63dceadf88', 1, '2021-06-01 21:01:50'),
+(5, '60b6421ba6f47', 1, '2021-06-01 21:20:11'),
+(6, '60b6429659aaa', 1, '2021-06-01 21:22:14'),
+(7, '60b3492db532b', 2, '2021-06-02 08:23:35'),
+(8, '60b3492db532b', 3, '2021-06-02 08:59:17'),
+(9, '60b3492db532b', 3, '2021-06-02 09:02:47'),
+(10, '60b348fd485f2', 2, '2021-06-02 09:13:09'),
+(11, '60b348fd485f2', 2, '2021-06-02 09:15:26');
 
 -- --------------------------------------------------------
 
@@ -267,7 +280,8 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `email`, `order_id`, `sender_name`, `amount`, `payment_image`, `created_at`, `confirm`) VALUES
-(1, 'mochamadnurulhuda16@gmail.com', '60b3492db532b', 'Mochamad Nurul Huda', 100000, '60b4bb36366bd.jpg', '2021-05-31 17:32:22', 0);
+(1, 'mochamadnurulhuda16@gmail.com', '60b3492db532b', 'Mochamad Nurul Huda', 100000, '60b4bb36366bd.jpg', '2021-05-31 17:32:22', 1),
+(2, 'mochamadnurulhuda16@gmail.com', '60b348fd485f2', 'Mochamad Nurul Huda', 100000, '60b6e92aa2149.jpg', '2021-06-02 09:12:58', 1);
 
 -- --------------------------------------------------------
 
@@ -459,18 +473,6 @@ INSERT INTO `users` (`id`, `role_id`, `email`, `username`, `fullname`, `date_of_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_access_menu`
---
-
-CREATE TABLE `user_access_menu` (
-  `id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `menu_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user_address`
 --
 
@@ -495,25 +497,6 @@ CREATE TABLE `user_address` (
 INSERT INTO `user_address` (`id`, `user_id`, `fullname`, `street_name`, `province`, `city`, `districts`, `postcode`, `phone`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Mochamad Nurul Huda', 'Jl. Laswi', 'Jawa Barat', 'Bandung', 'Majalaya', '40382', '081242337968', '2021-06-01 08:28:58', NULL),
 (2, 1, 'Mochamad Nurul Huda', 'Jl. Baru', 'Jawa Barat', 'Bandung', 'Majalaya', '40382', '085220455777', '2021-06-01 16:18:49', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_menu`
---
-
-CREATE TABLE `user_menu` (
-  `id` int(11) NOT NULL,
-  `menu` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_menu`
---
-
-INSERT INTO `user_menu` (`id`, `menu`) VALUES
-(1, 'Admin'),
-(2, 'User');
 
 -- --------------------------------------------------------
 
@@ -550,7 +533,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `order_detail`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `order_detail`  AS  select `orders`.`id` AS `id`,`orders`.`user_id` AS `user_id`,`orders`.`shipping` AS `shipping`,`orders`.`amount` AS `amount`,`orders`.`address_id` AS `address_id`,`order_items`.`id` AS `item_id`,`order_items`.`product_id` AS `product_id`,`order_items`.`size` AS `size`,`order_items`.`quantity` AS `quantity`,`order_items`.`subtotal` AS `subtotal`,`order_logs`.`id` AS `logs_id`,`order_logs`.`order_status` AS `order_status`,`order_logs`.`created_at` AS `created_at` from ((`orders` join `order_items` on(`order_items`.`order_id` = `orders`.`id`)) join `order_logs` on(`order_logs`.`order_id` = `orders`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `order_detail`  AS  select `orders`.`id` AS `id`,`orders`.`user_id` AS `user_id`,`orders`.`shipping` AS `shipping`,`orders`.`amount` AS `amount`,`orders`.`address_id` AS `address_id`,`orders`.`order_status` AS `order_status`,`order_items`.`id` AS `item_id`,`order_items`.`product_id` AS `product_id`,`order_items`.`size` AS `size`,`order_items`.`quantity` AS `quantity`,`order_items`.`subtotal` AS `subtotal` from (`orders` join `order_items` on(`order_items`.`order_id` = `orders`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -633,25 +616,11 @@ ALTER TABLE `users`
   ADD KEY `role_id` (`role_id`);
 
 --
--- Indexes for table `user_access_menu`
---
-ALTER TABLE `user_access_menu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `role_id` (`role_id`),
-  ADD KEY `menu_id` (`menu_id`);
-
---
 -- Indexes for table `user_address`
 --
 ALTER TABLE `user_address`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `user_menu`
---
-ALTER TABLE `user_menu`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user_role`
@@ -667,19 +636,19 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `order_logs`
 --
 ALTER TABLE `order_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_statuses`
@@ -691,13 +660,13 @@ ALTER TABLE `order_statuses`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `stock`
@@ -709,24 +678,12 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `user_access_menu`
---
-ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `user_menu`
---
-ALTER TABLE `user_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -783,13 +740,6 @@ ALTER TABLE `stock`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`id`);
-
---
--- Constraints for table `user_access_menu`
---
-ALTER TABLE `user_access_menu`
-  ADD CONSTRAINT `user_access_menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`id`),
-  ADD CONSTRAINT `user_access_menu_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `user_menu` (`id`);
 
 --
 -- Constraints for table `user_address`
