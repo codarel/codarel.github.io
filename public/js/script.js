@@ -78,10 +78,10 @@ $(document).ready(function () {
   });
 
   $(function () {
-    $(".product-des").each(function (i) {
+    $(".product-description").each(function (i) {
       len = $(this).text().length;
-      if (len > 15) {
-        $(this).text($(this).text().substr(0, 15) + "...");
+      if (len > 80) {
+        $(this).text($(this).text().substr(0, 80) + "...");
       }
     });
   });

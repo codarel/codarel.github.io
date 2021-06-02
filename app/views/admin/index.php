@@ -231,7 +231,6 @@
                     <th scope="col">Payment Image</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Confirm</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -245,9 +244,17 @@
                         <td><?= $payment['amount']; ?></td>
                         <td><a href="<?= BASEURL; ?>img/<?= $payment['payment_image']; ?>"><?= $payment['payment_image']; ?></a></td>
                         <td><?= $payment['created_at']; ?></td>
-                        <td><?= $payment['confirm']; ?></td>
                         <td>
-                            <a class="btn bg-warning text-white" href="<?= BASEURL; ?>admin"><i class="fas fa-edit"></i></a>
+                            <?php if ($payment['confirm'] == 1) : ?>
+                                <button type="button disable" class="btn bg-success text-white" href="<?= BASEURL; ?>admin"><i class="fas fa-check"></i></button>
+                            <?php else : ?>
+                                <form action="<?= BASEURL; ?>admin/confirm/<?= $payment['id']; ?>" method="post" class="d-inline">
+                                    <input type="hidden" name="_method" value="UPDATE">
+                                    <input type="hidden" name="confirm" value="1">
+                                    <input type="hidden" name="orderid" value="<?= $payment['order_id']; ?>">
+                                    <button class="btn bg-danger text-white" onclick="return confirm('apakah anda yakin?');"><i class="fas fa-minus"></i></button>
+                                </form>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

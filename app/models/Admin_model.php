@@ -253,4 +253,24 @@ class Admin_model
 
         return $this->db->rowCount();
     }
+
+    public function updatePayment($id)
+    {
+        $this->db->query('UPDATE payment SET confirm=:confirm WHERE id=:id');
+        $this->db->bind('id', $id);
+        $this->db->bind('confirm', $_POST['confirm']);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    public function updateOrder($id, $orderstatus)
+    {
+        $this->db->query('UPDATE orders SET order_status=:orderstatus WHERE id=:id');
+        $this->db->bind('id', $id);
+        $this->db->bind('orderstatus', $orderstatus);
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
 }

@@ -13,19 +13,16 @@
                         <h6 class="msg-info">Please login to your account</h6>
                         <form action="<?= BASEURL; ?>auth/login" method="POST">
                             <div class="form-group"> <label class="form-control-label text-muted">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Email" class="form-control">
+                                <input type="email" id="email" name="email" placeholder="Email" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label text-muted">Password</label>
-                                <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+                                <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
                             </div>
                             <div class="row justify-content-center my-3 px-3">
                                 <button class="btn-block btn-color">Login</button>
                             </div>
                         </form>
-                        <div class="row justify-content-center my-2">
-                            <a href="#"><small class="text-muted">Forgot Password?</small></a>
-                        </div>
                     </div>
                 </div>
                 <div class="bottom text-center mb-5">

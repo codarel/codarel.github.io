@@ -213,4 +213,24 @@ class Admin extends Controller
             header('Location: ' . BASEURL . 'admin');
         }
     }
+
+    public function confirm($id)
+    {
+        var_dump($id);
+        var_dump($_POST);
+        $payment = $this->model('Admin_model')->updatePayment($id);
+        if ($payment == 1) {
+            $data = $this->model('Admin_model')->updateOrder($_POST['orderid'], 2);
+            if ($data == 1) {
+                Flasher::setFlash('Konfirmasi', 'berhasil', 'success');
+                header('Location: ' . BASEURL . 'admin');
+            } else {
+                Flasher::setFlash('Konfirmasi', 'gagal', 'danger');
+                header('Location: ' . BASEURL . 'admin');
+            }
+        } else {
+            Flasher::setFlash('Konfirmasi', 'gagal', 'danger');
+            header('Location: ' . BASEURL . 'admin');
+        }
+    }
 }

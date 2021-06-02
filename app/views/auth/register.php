@@ -9,15 +9,15 @@
                         <form action="<?= BASEURL; ?>auth/create" method="POST">
                             <div class="form-group">
                                 <label class="form-control-label text-muted" for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="Email" class="form-control">
+                                <input type="email" id="email" name="email" placeholder="Email" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label text-muted" for="password">Password</label>
-                                <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+                                <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label text-muted" for="confirm">Confirm Password</label>
-                                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" class="form-control">
+                                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" class="form-control" required>
                             </div>
                             <div class="row justify-content-center my-3 px-3">
                                 <button class="btn-block btn-color">Register</button>

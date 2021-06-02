@@ -47,14 +47,21 @@ class Auth extends Controller
 
     public function create()
     {
-        if ($this->model('Auth_model')->createUser($_POST) > 0) {
-            if ($_POST['password'] === $_POST['confirm']) {
-                Flasher::setFlash('Akun berhasil', 'ditambahkan', 'success');
+        $user = $this->model("Auth_model")->getUserByEmail($_POST['email']);
+        if (!isset($user)) {
+            if ($this->model('Auth_model')->createUser($_POST) > 0) {
+                if ($_POST['password'] === $_POST['confirm']) {
+                    Flasher::setFlash('Akun berhasil', 'ditambahkan', 'success');
+                    header('Location: ' . BASEURL . 'auth');
+                    exit;
+                }
+            } else {
+                Flasher::setFlash('Akun gagal', 'ditambahkan', 'danger');
                 header('Location: ' . BASEURL . 'auth');
                 exit;
             }
         } else {
-            Flasher::setFlash('Akun gagal', 'ditambahkan', 'danger');
+            Flasher::setFlash('Akun dengan email tersebut', 'sudah didaftarkan', 'danger');
             header('Location: ' . BASEURL . 'auth');
             exit;
         }
