@@ -28,14 +28,26 @@ class Admin extends Controller
             // var_dump($data['orders']);
             // var_dump($data['items']);
             // var_dump($data['payment']);
-            $data['products'] = $this->model('Admin_model')->getAllProduct();
-            $data['stocks'] = $this->model('Admin_model')->getAllDetailProduct();
             $this->view('templates/header', $data);
             $this->view('admin/index', $data);
             $this->view('templates/footer');
         }
     }
 
+    public function product()
+    {
+        if ($this->return == true) {
+            $data['judul'] = 'Product';
+            // var_dump($data['orders']);
+            // var_dump($data['items']);
+            // var_dump($data['payment']);
+            $data['products'] = $this->model('Admin_model')->getAllProduct();
+            $data['stocks'] = $this->model('Admin_model')->getAllDetailProduct();
+            $this->view('templates/header', $data);
+            $this->view('admin/product', $data);
+            $this->view('templates/footer');
+        }
+    }
     public function create()
     {
         if ($this->return == true) {

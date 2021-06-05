@@ -193,6 +193,7 @@
                                                         <li><a href="<?= BASEURL; ?>admin">Admin<i class="ti-angle-down"></i></a>
                                                             <ul class="dropdown">
                                                                 <li><a href="<?= BASEURL; ?>admin">Admin</a></li>
+                                                                <li><a href="<?= BASEURL; ?>admin/product">Product</a></li>
                                                                 <li><a href="<?= BASEURL; ?>admin/create">Tambah Data Produk</a></li>
                                                                 <li><a href="<?= BASEURL; ?>admin/stock">Tambah Data Stok</a></li>
                                                             </ul>
