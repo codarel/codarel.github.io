@@ -39,7 +39,7 @@
             <!-- Single Banner  -->
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="single-banner">
-                    <img src="https://via.placeholder.com/600x370" alt="#">
+                    <img class="width: 600px; height: 370px;" src="https://i.ibb.co/By295Gv/image1.png" alt="#">
                     <div class="content">
                         <p>Man's Collectons</p>
                         <h3>Summer travel <br> collection</h3>
@@ -51,11 +51,11 @@
             <!-- Single Banner  -->
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="single-banner">
-                    <img src="https://via.placeholder.com/600x370" alt="#">
+                    <img class="width: 600px; height: 370px;" src="https://i.ibb.co/NCXL8Cg/image2.png" alt="#">
                     <div class="content">
                         <p>Bag Collectons</p>
-                        <h3>Awesome Bag <br> 2020</h3>
-                        <a href="#">Shop Now</a>
+                        <h3 class="text-white">Awesome Bag <br> 2020</h3>
+                        <a class="text-white" href="#">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
             <!-- Single Banner  -->
             <div class="col-lg-4 col-12">
                 <div class="single-banner tab-height">
-                    <img src="https://via.placeholder.com/600x370" alt="#">
+                    <img class="width: 600px; height: 370px;" src="https://i.ibb.co/9s43hwk/image3.png" alt="#">
                     <div class="content">
                         <p>Flash Sale</p>
                         <h3>Mid Season <br> Up to <span>40%</span> Off</h3>
@@ -166,7 +166,7 @@
             <!-- Single Banner  -->
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="single-banner">
-                    <img src="https://via.placeholder.com/600x370" alt="#">
+                    <img class="width: 600px; height: 370px;" src="https://via.placeholder.com/600x370" alt="#">
                     <div class="content">
                         <p>Man's Collectons</p>
                         <h3>Man's items <br>Up to<span> 50%</span></h3>
@@ -178,7 +178,7 @@
             <!-- Single Banner  -->
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="single-banner">
-                    <img src="https://via.placeholder.com/600x370" alt="#">
+                    <img class="width: 600px; height: 370px;" src="https://via.placeholder.com/600x370" alt="#">
                     <div class="content">
                         <p>shoes women</p>
                         <h3>mid season <br> up to <span>70%</span></h3>
